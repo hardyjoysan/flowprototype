@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3-zoom": "^1.7.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-drag-and-zoom": "^1.1.3",

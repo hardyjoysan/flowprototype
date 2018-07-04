@@ -16,7 +16,6 @@ class App extends Component {
   }
 
   switchViewHandle(viewId) {
-    console.log(viewId);
     this.setState({
       modalView : viewId
     });
@@ -26,27 +25,21 @@ class App extends Component {
     switch(param){
       case "1":
         return <ModalOne click={this.switchViewHandle} viewChild="2" />
-      break;
 
       case "2":
         return <ModalTwo click={this.switchViewHandle} viewChild="3" viewParent="1"/>
-      break;
 
       case "3":
         return <ModalThree click={this.switchViewHandle} viewChild="4" viewParent="2"/>
-      break;
 
       case "4":
         return <ModalFour click={this.switchViewHandle} viewChild="5" viewParent="3"/>
-      break;
 
       case "5":
         return <ModalFive click={this.switchViewHandle} viewParent="4"/>
-      break;
 
       default:
         return <ModalOne click={this.switchViewHandle} viewChild="2"/>
-      break;
     }
   }
 

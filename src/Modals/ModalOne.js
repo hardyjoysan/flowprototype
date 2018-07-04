@@ -8,9 +8,9 @@ class ModalOne extends Component {
         this.zoomSwitchHandle = this.zoomSwitchHandle.bind(this);
     }
 
-    zoomSwitchHandle = (event) => {
-        console.log('zoom', event);
-        if(event >= 200){
+    zoomSwitchHandle = (value, event) => {
+        //console.log('zoom', event);
+        if(value >= 200){
             this.props.click(this.props.viewChild);
         }
     }
@@ -18,7 +18,7 @@ class ModalOne extends Component {
     render(){
         return(
             <div>
-                <DragAndZoom zoomStep={10} minZoom={10} onZoom={event => this.zoomSwitchHandle(event)}>
+                <DragAndZoom zoomStep={10} minZoom={10} onZoom={(value, event) => this.zoomSwitchHandle(value, event)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">
                         <g>
                             <ellipse ry="300" rx="300" cy="400" cx="400" strokeWidth="5" stroke="#fff" fill="#555"></ellipse>

@@ -8,17 +8,19 @@ class ModalThree extends Component {
         this.zoomSwitchHandle = this.zoomSwitchHandle.bind(this);
     }
 
-    zoomSwitchHandle = (event) => {
-        console.log('zoom', event);
-        if(event >= 200){
+    zoomSwitchHandle = (value) => {
+        if(value >= 200){
             this.props.click(this.props.viewChild);
+        }
+        if(value <= 20){
+            this.props.click(this.props.viewParent);
         }
     }
 
     render(){
         return(
             <div>
-                <DragAndZoom zoomStep={10} minZoom={10} onZoom={event => this.zoomSwitchHandle(event)}>
+                <DragAndZoom zoomStep={10} minZoom={10} onZoom={value => this.zoomSwitchHandle(value)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
                     <g>
                         <ellipse ry="50" rx="50" cy="92" cx="100" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
