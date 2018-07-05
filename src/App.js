@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './css/App.css';
 import ModalOne from './Modals/ModalOne';
 import ModalTwo from './Modals/ModalTwo';
 import ModalThree from './Modals/ModalThree';
