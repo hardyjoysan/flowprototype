@@ -25,15 +25,7 @@ class ModalOne extends Component {
                         <g>
                             <ellipse ry="300" rx="300" cy="400" cx="400" strokeWidth="5" stroke="#fff" fill="#555"></ellipse>
                             <ellipse ry="80" rx="80" cy="400" cx="200" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
-                            <ellipse ry="150" rx="150" cy="400" cx="500" strokeWidth="3" stroke="#fff" fill="#555">
-
-                            <foreignObject width="200" height="200" 
-     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-      <p xmlns="http://www.w3.org/1999/xhtml">Text goes here</p>
-    </foreignObject>
-
-
-                            </ellipse>
+                            <ellipse ry="150" rx="150" cy="400" cx="500" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
                             <line id="svg_5" y2="400" x2="280" y1="400" x1="350" strokeWidth="3" stroke="#fff"></line>
                         </g>
                     </svg>
