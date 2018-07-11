@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import DragAndZoom from 'react-drag-and-zoom';
 
 class ModalFive extends Component {
 
@@ -17,7 +16,6 @@ class ModalFive extends Component {
     render(){
         return(
             <div>
-                <DragAndZoom zoomStep={10} minZoom={10} maxZoom={300} onZoom={value => this.zoomSwitchHandle(value)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
                     <g>
                         <ellipse stroke="#fff" ry="25" rx="25" cy="152" cx="66.5" strokeWidth="3" fill="#555"/>
@@ -32,9 +30,7 @@ class ModalFive extends Component {
                         <line y2="256" x2="245.5" y1="167" x1="86.5" strokeWidth="3" stroke="#fff" fill="none"/>
                         <line y2="335" x2="277.5" y1="488" x1="158.5" strokeWidth="3" stroke="#fff" fill="none"/>
                     </g>
-                </svg>
-                </DragAndZoom>
-    
+                </svg>    
             </div>
         );
     }

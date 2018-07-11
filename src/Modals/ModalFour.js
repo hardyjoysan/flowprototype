@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import DragAndZoom from 'react-drag-and-zoom';
 
 class ModalFour extends Component {
 
@@ -20,7 +19,6 @@ class ModalFour extends Component {
     render(){
         return(
             <div>
-                <DragAndZoom zoomStep={10} minZoom={10} onZoom={value => this.zoomSwitchHandle(value)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
                     <g>
                         <ellipse stroke="#fff" ry="45" rx="45" cy="100" cx="100" strokeWidth="3" fill="none"/>
@@ -33,8 +31,6 @@ class ModalFour extends Component {
                         <line y2="453.31597" x2="99.5" y1="143" x1="99.5" strokeWidth="3" stroke="#fff" fill="none"/>
                     </g>
                 </svg>
-                </DragAndZoom>
-    
             </div>
         );
     }

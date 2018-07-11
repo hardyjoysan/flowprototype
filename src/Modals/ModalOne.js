@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import DragAndZoom from 'react-drag-and-zoom';
 import '../css/ModalOne.css';
 
 class ModalOne extends Component {
@@ -19,18 +18,14 @@ class ModalOne extends Component {
     render(){
         return(
             <div className="modelone">
-                <h2>Aceme Inc</h2>
-                <DragAndZoom zoomStep={10} minZoom={10} onZoom={(value, event) => this.zoomSwitchHandle(value, event)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">
-                        <g>
-                            <ellipse ry="300" rx="300" cy="400" cx="400" strokeWidth="5" stroke="#fff" fill="#555"></ellipse>
-                            <ellipse ry="80" rx="80" cy="400" cx="200" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
-                            <ellipse ry="150" rx="150" cy="400" cx="500" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
-                            <line id="svg_5" y2="400" x2="280" y1="400" x1="350" strokeWidth="3" stroke="#fff"></line>
-                        </g>
-                    </svg>
-                </DragAndZoom>
-    
+                <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">
+                    <g>
+                        <ellipse ry="300" rx="300" cy="400" cx="400" strokeWidth="5" stroke="#fff" fill="#555"></ellipse>
+                        <ellipse ry="80" rx="80" cy="400" cx="200" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
+                        <ellipse ry="150" rx="150" cy="400" cx="500" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
+                        <line id="svg_5" y2="400" x2="280" y1="400" x1="350" strokeWidth="3" stroke="#fff"></line>
+                    </g>
+                </svg>    
             </div>
         );
     }
