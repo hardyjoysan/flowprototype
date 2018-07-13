@@ -1,4 +1,11 @@
 .App{
     text-align: center;
 }
-  
+rect {
+    fill: white;
+}
+circle{
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+}
