@@ -21,7 +21,8 @@ class App extends Component {
 
     g.append("rect")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .call(d3.zoom().scaleExtent([0.3, 10]).on("zoom", zoomed));
 
     const view = g.append("g")
                 .attr("class", "view");
@@ -32,6 +33,9 @@ class App extends Component {
         .attr("transform", function(d) { return "translate(" + d + ")"; })
         .attr("r", 50);
 
+    function zoomed() {
+      view.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+    }
   }
 
   
