@@ -7,9 +7,15 @@ class App extends Component {
 
   componentDidMount(){
 
+    const width = window.frameElement ? 960 : window.innerWidth,
+          height = window.frameElement ? 600 : window.innerHeight,
+          margin = {top: -5, right: -5, bottom: -5, left: -5};
+
     var zoom = d3.zoom()
-    .scaleExtent([1, 40])
-    .on("zoom", zoomed);
+                .extent([[0, 0], [width, height]])
+                .scaleExtent([1, 40])
+                .translateExtent([[0, 0], [width, height]])
+                .on("zoom", zoomed);
 
     var links = [ { source : "A", target : "B" }, { source : "B", target : "C" }, { source : "C", target : "D" }, { source : "D", target : "E" }, { source : "E", target : "F" }, { source : "F", target : "G" }, { source : "G", target : "H" }, { source : "H", target : "I" }, { source : "I", target : "J" }, { source : "J", target : "A" } ] ;
     var nodes = {};
@@ -20,10 +26,6 @@ class App extends Component {
       link.target = nodes[link.target] ||
       (nodes[link.target] = {name: link.target});
     });
-
-    const width = window.frameElement ? 960 : window.innerWidth,
-          height = window.frameElement ? 600 : window.innerHeight,
-          margin = {top: -5, right: -5, bottom: -5, left: -5};
 
     const force = d3.forceSimulation()
                   .nodes(d3.values(nodes))
@@ -40,7 +42,7 @@ class App extends Component {
                   .attr("height", height)
                   .append("g")
                   .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
-                  .call(zoom);
+                  .call(zoom).on("mousedown.zoom", null);
 
     svg.append("rect")
         .attr("width", width)
