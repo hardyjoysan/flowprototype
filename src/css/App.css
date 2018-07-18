@@ -2,32 +2,18 @@
     text-align: center;
 }
 .link {
-stroke: #666;
-opacity: 0.6;
-stroke-width: 1.5px;
+    stroke: #000;
+    stroke-width: 1.5px;
 }
 .node circle {
-stroke: #fff;
-opacity: 0.6;
-stroke-width: 1.5px;
+    stroke: #fff;
+    stroke: #000;
+    stroke-width: 1.5px;
 }
 text {
-font: 7px serif;
-opacity: 0.6;
-pointer-events: none;
-}
-
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 28px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
+    font: 18px serif;
+    fill: #fff;
+    pointer-events: none;
 }
 
 .overlay {
