@@ -1,22 +1,3 @@
 .App{
     text-align: center;
 }
-.link {
-    stroke: #000;
-    stroke-width: 1.5px;
-}
-.node circle {
-    stroke: #fff;
-    stroke: #000;
-    stroke-width: 1.5px;
-}
-text {
-    font: 18px serif;
-    fill: #fff;
-    pointer-events: none;
-}
-
-.overlay {
-    fill: none;
-    pointer-events: all;
-}
