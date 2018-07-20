@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import '../css/ModalOne.css';
+
+import * as d3 from 'd3';
 
 class ModalOne extends Component {
 
@@ -9,9 +10,25 @@ class ModalOne extends Component {
     }
 
     zoomSwitchHandle = (value, event) => {
-        //console.log('zoom', event);
         if(value >= 200){
-            this.props.click(this.props.viewChild);
+            this.props.zoomHandle(this.props.viewChild);
+        }
+    }
+
+    componentDidMount(){
+        const width = window.frameElement ? 960 : window.innerWidth,
+              height = window.frameElement ? 600 : window.innerHeight;
+              
+        var zoom = d3.zoom()
+                    .extent([[0, 0], [width, height]])
+                    .scaleExtent([0.5, 10])
+                    .translateExtent([[0, 0], [width, height]])
+                    .on("zoom", zoomed);
+        
+        var svg = d3.select("svg").call(zoom);
+
+        function zoomed() {
+            svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
         }
     }
 
