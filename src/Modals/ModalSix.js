@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import '../css/modalSix.css';
 
 import * as d3 from 'd3';
 

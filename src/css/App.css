@@ -1,3 +1,37 @@
 .App{
     text-align: center;
+    background: #555;
+    margin: 50px;
+}
+rect{
+    fill: none;
+    pointer-events: all;
+}
+text{
+    fill: #ffffff;
+    border: 1px solid #000000;
+    font: 18px serif;
+}
+circle{
+    stroke: #fff;
+    stroke-width: 3px;
+    fill: none;
+}
+line{
+    stroke-width: 3px;
+    stroke: #ffffff;
+}
+
+.link {
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+.node circle {
+    stroke: #fff;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+.overlay {
+    fill: none;
+    pointer-events: all;
 }
