@@ -22,6 +22,12 @@ class ModalOne extends Component {
             ]
         }];
 
+        var zoom = d3.zoom()
+                    .extent([[0, 0], [width, height]])
+                    .scaleExtent([0.5, 10])
+                    .translateExtent([[0, 0], [width, height]])
+                    .on("zoom", zoomed);
+
         data.forEach(function(node){
             node.cx = width/2;
             node.cy = height/2;
@@ -61,7 +67,9 @@ class ModalOne extends Component {
         const svg = d3.select(".modalOne")
                     .append("svg")
                     .attr("width", width)
-                    .attr("height", height);
+                    .attr("height", height)
+                    .append("g")
+                    .call(zoom);
         
         data.forEach(function(comp){
 
@@ -106,12 +114,17 @@ class ModalOne extends Component {
                 .append('xhtml:h3')
                 .attr('class', 'header')
                 .style("font-size", "10px")
-                .html(function(d) { return d.division; });
+                .text(function(d) { return d.division; });
+
                 comp.children.forEach(function(team) {
                     //console.log(team.children);
                 });
             }
         });
+
+        function zoomed() {
+            svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+        }
     }
 
     render(){
