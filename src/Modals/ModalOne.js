@@ -65,7 +65,7 @@ class ModalOne extends Component {
         
         data.forEach(function(comp){
 
-            const g_c = svg.selectAll('company')
+            const g_c = svg.selectAll('.company')
             .data(data).enter().append('g').attr("class", "company");
 
             g_c.append('circle')
@@ -73,11 +73,17 @@ class ModalOne extends Component {
             .attr('cx', function(d) {return d.cx})
             .attr('cy', function(d) {return d.cy});
 
+            g_c.append('foreignObject')
+                .attr('x', function(d) { return d.cx - 50; })
+                .attr('y', function(d) { return d.cy - d.r - 70; })
+                .attr('width', 100)
+                .append('xhtml:h3')
+                .attr('class', 'header')
+                .html(function(d) { return d.company; });
+
             if (comp.children) {
 
-                const g_d = svg.append('g').attr("class", "division");
-
-                g_d.selectAll("line")
+                svg.selectAll("line")
                 .data(comp.links)
                 .enter()
                 .append("line")
@@ -86,13 +92,21 @@ class ModalOne extends Component {
                 .attr("x2", function(d) { return d.target.cx; })
                 .attr("y2", function(d) { return d.target.cy; });
 
-                g_d.selectAll('circle')
-                .data(comp.children).enter()
-                .append('circle')
+                const g_d = svg.selectAll('.division')
+                .data(comp.children).enter().append('g').attr("class", "division");
+                g_d.append('circle')
                 .attr('r', function(d) {return d.r})
                 .attr('cx', function(d) {return d.cx})
                 .attr('cy', function(d) {return d.cy});
 
+                g_d.append('foreignObject')
+                .attr('x', function(d) { return d.cx - 50; })
+                .attr('y', function(d) { return d.cy - d.r - 70; })
+                .attr('width', 100)
+                .append('xhtml:h3')
+                .attr('class', 'header')
+                .style("font-size", "10px")
+                .html(function(d) { return d.division; });
                 comp.children.forEach(function(team) {
                     //console.log(team.children);
                 });

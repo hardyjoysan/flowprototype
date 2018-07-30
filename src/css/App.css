@@ -21,3 +21,11 @@ line{
     stroke-width: 3px;
     stroke: #ffffff;
 }
+h3.header{
+    background: #303030;
+    color: #fff;
+    padding: 10px 0;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
