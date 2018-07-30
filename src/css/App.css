@@ -15,7 +15,7 @@ text{
 circle{
     stroke: #fff;
     stroke-width: 3px;
-    fill: none;
+    fill: #555;
 }
 line{
     stroke-width: 3px;
