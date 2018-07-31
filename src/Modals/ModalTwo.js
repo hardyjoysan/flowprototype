@@ -1,56 +1,145 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import * as d3 from 'd3';
 
 class ModalTwo extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {width: 960, height: 500};
-    }
+    componentDidMount() {
 
-    componentDidMount(){
+        const width = window.frameElement ? 960 : window.innerWidth - 100,
+            height = window.frameElement ? 600 : window.innerHeight - 100;
 
-        var circleData = [{ "cx": 150, "cy": 400, "radius": 100 },
-                        { "cx": 575, "cy": 400, "radius": 200}];
+        const data = [
+            {
+                "division": "Stockholm",
+                "children": [{ "team": "Optimus Prime" }, { "team": "Bumblebee" }, { "team": "Starscream" }]
+            },
+            {
+                "division": "Gothenburg",
+                "children": [{ "team": "Megatron" }]
+            }
+        ];
 
-        const width = window.innerWidth - 100,
-              height = window.innerHeight - 100;
+
+
+        function calculateNodes(data, width, height, cx = null, cy = null) {
+            
+
+                data.links = [];
+                var i = 0;
+
+                data.forEach(function (node) {
+
+                    var angle = (i / (data.length / 2)) * Math.PI;
+                    var node_r = Math.min(width, height) / (data.length * 2.5);
+                    if (node.children && node.children.length > 1) {
+                        node_r = node_r + 50;
+                    }
+                    var orbit_r = Math.min(width, height) - node_r - 200;
+                    node.cx = (width / 2) + orbit_r * Math.cos(angle);
+                    node.cy = (height / 2) + orbit_r * Math.sin(angle);
+                    node.r = node_r;
+
+                    if (i === data.length - 1) {
+                        data.links[i] = { source: data[i], target: data[0] };
+                    } else {
+                        data.links[i] = { source: data[i], target: data[i + 1] };
+                    }
+
+                    if (node.children) {
+                        var node_child = node.children;
+                        var j = 0;
+                        node.links = [];
+                        node_child.forEach(function(child) {
+                            var angle = (j / (node_child.length / 2)) * Math.PI;
+                            var child_r = Math.min(node_r*2, node_r*2) / (node_child.length * 2.5);
+                            var childorbit_r = Math.min(node_r, node_r) - child_r - 200;
+                            child.cx = node.cx + childorbit_r * Math.cos(angle);
+                            child.cy = node.cy + childorbit_r * Math.sin(angle);
+                            child.r = child_r;
+
+                            if (j === node_child.length - 1) {
+                                node.links[j] = { source: node_child[j], target: node_child[0] };
+                            } else {
+                                node.links[j] = { source: node_child[j], target: node_child[j + 1] };
+                            }
+
+                            j++;
+                        })
+                    }
+
+                    i++;
+                });
+            
+        }
+
+        calculateNodes(data, width, height);
 
         var zoom = d3.zoom()
-                    .scaleExtent([0.5, 10])
-                    .translateExtent([[0, 0], [width, height]])
-                    .extent([[width/4, 0], [width, height]])
-                    .on("zoom", zoomed);
+            .scaleExtent([0.5, 10])
+            .translateExtent([[0, 0], [width, height]])
+            .extent([[0, 0], [width, height]])
+            .on("zoom", zoomed);
 
         const svg = d3.select(".modalTwo")
-                      .append("svg")
-                      .attr("width", width)
-                      .attr("height", height)
-                      .append("g")
-                      .attr("transform", "translate("+ width/4 +" ,0 )")
-                      .call(zoom);
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .call(zoom);
 
-        svg.append("rect").attr("width", width).attr("height", height);
+        svg.selectAll("line")
+            .data(data.links)
+            .enter()
+            .append("line")
+            .attr("x1", function (d) { return d.source.cx; })
+            .attr("y1", function (d) { return d.source.cy; })
+            .attr("x2", function (d) { return d.target.cx; })
+            .attr("y2", function (d) { return d.target.cy; });
 
-        svg.append("text").attr("x", 125).attr("y", 250).text("Division")
-        svg.append("text").attr("x", 525).attr("y", 125).text("Bigger Division")
+        const g_d = svg.selectAll('.division')
+            .data(data).enter().append('g').attr("class", "division");
+        g_d.append('circle')
+            .attr('r', function (d) { return d.r })
+            .attr('cx', function (d) { return d.cx })
+            .attr('cy', function (d) { return d.cy });
 
-        const circles = svg.selectAll("circle").data(circleData).enter().append("circle")
+        g_d.append('foreignObject')
+            .attr('x', function (d) { return d.cx - 50; })
+            .attr('y', function (d) { return d.cy - d.r - 70; })
+            .attr('width', 100)
+            .append('xhtml:h3')
+            .attr('class', 'header')
+            .text(function (d) { return d.division; });
 
-        circles
-            .attr("cx", function (d) { return d.cx; })
-            .attr("cy", function (d) { return d.cy; })
-            .attr("r", function (d) { return d.radius; });
-        
-        svg.append("line").attr("x1", 375).attr("y1", 400).attr("x2", 250).attr("y2", 400)
+        var division = data;
+
+        division.forEach(function (teams) {
+            svg.selectAll(".teamline")
+            .data(teams.links)
+            .enter()
+            .append("line")
+            .attr("class", "teamline")
+            .attr("x1", function(d) { return d.source.cx; })
+            .attr("y1", function(d) { return d.source.cy; })
+            .attr("x2", function(d) { return d.target.cx; })
+            .attr("y2", function(d) { return d.target.cy; });
+
+            teams.children.forEach(function(team) {
+                const g_t = svg.append('g').attr("class", "team");
+                g_t.append('circle')
+                .attr('r', team.r)
+                .attr('cx', team.cx)
+                .attr('cy', team.cy);
+            })
+        });
 
         function zoomed() {
             svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="modalTwo"></div>
         );
     }
