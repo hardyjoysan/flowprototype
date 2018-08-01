@@ -19,60 +19,68 @@ class ModalTwo extends Component {
             }
         ];
 
+        data.links = [];
+        var i = 0;
 
+        data.forEach(function (node) {
 
-        function calculateNodes(data, width, height, cx = null, cy = null) {
-            
+            var angle = (i / (data.length / 2)) * Math.PI;
+            var node_r = Math.min(width, height) / (data.length * 2.5);
+            if (node.children && node.children.length > 1) {
+                node_r = node_r + 50;
+            }
+            var orbit_r = Math.min(width, height) - node_r - 200;
+            node.cx = (width / 2) + orbit_r * Math.cos(angle);
+            node.cy = (height / 2) + orbit_r * Math.sin(angle);
+            node.r = node_r;
 
-                data.links = [];
-                var i = 0;
+            if (i === data.length - 1) {
+                data.links[i] = { source: data[i], target: data[0] };
+            } else {
+                data.links[i] = { source: data[i], target: data[i + 1] };
+            }
 
-                data.forEach(function (node) {
+            if (node.children) {
+                var node_child = node.children;
+                var j = 0;
+                node.links = [];
+                node_child.forEach(function(child) {
 
-                    var angle = (i / (data.length / 2)) * Math.PI;
-                    var node_r = Math.min(width, height) / (data.length * 2.5);
-                    if (node.children && node.children.length > 1) {
-                        node_r = node_r + 50;
-                    }
-                    var orbit_r = Math.min(width, height) - node_r - 200;
-                    node.cx = (width / 2) + orbit_r * Math.cos(angle);
-                    node.cy = (height / 2) + orbit_r * Math.sin(angle);
-                    node.r = node_r;
+                    var child_len = (node_child.length > 2) ? 2 : node_child.length;
+                    console.log(child_len);
+                    if (j >= 2) {
+                        return false;
+                    }else{
 
-                    if (i === data.length - 1) {
-                        data.links[i] = { source: data[i], target: data[0] };
-                    } else {
-                        data.links[i] = { source: data[i], target: data[i + 1] };
-                    }
+                        var angle = (j / (child_len / 2)) * Math.PI;
+                        var child_r = node_r / (child_len * 2);
 
-                    if (node.children) {
-                        var node_child = node.children;
-                        var j = 0;
-                        node.links = [];
-                        node_child.forEach(function(child) {
-                            var angle = (j / (node_child.length / 2)) * Math.PI;
-                            var child_r = Math.min(node_r*2, node_r*2) / (node_child.length * 2.5);
-                            var childorbit_r = Math.min(node_r, node_r) - child_r - 200;
+                        if(child_len > 1){
+                            var childorbit_r = node_r - child_r - (child_len * 120);
                             child.cx = node.cx + childorbit_r * Math.cos(angle);
                             child.cy = node.cy + childorbit_r * Math.sin(angle);
                             child.r = child_r;
+                        }else{
+                            child.cx = node.cx;
+                            child.cy = node.cy;
+                            child.r = child_r - 20;
+                        }
 
-                            if (j === node_child.length - 1) {
-                                node.links[j] = { source: node_child[j], target: node_child[0] };
-                            } else {
-                                node.links[j] = { source: node_child[j], target: node_child[j + 1] };
-                            }
+                        if (j === child_len - 1) {
+                            node.links[j] = { source: node_child[j], target: node_child[0] };
+                        } else {
+                            node.links[j] = { source: node_child[j], target: node_child[j + 1] };
+                        }
+                        j++;
 
-                            j++;
-                        })
                     }
 
-                    i++;
-                });
-            
-        }
+                    
+                })
+            }
 
-        calculateNodes(data, width, height);
+            i++;
+        });
 
         var zoom = d3.zoom()
             .scaleExtent([0.5, 10])
