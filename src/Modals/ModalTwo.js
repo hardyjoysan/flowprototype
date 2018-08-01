@@ -29,7 +29,7 @@ class ModalTwo extends Component {
             if (node.children && node.children.length > 1) {
                 node_r = node_r + 50;
             }
-            var orbit_r = Math.min(width, height) - node_r - 200;
+            var orbit_r = Math.min(width, height) - node_r - 250;
             node.cx = (width / 2) + orbit_r * Math.cos(angle);
             node.cy = (height / 2) + orbit_r * Math.sin(angle);
             node.r = node_r;

@@ -1,34 +1,100 @@
 import React, {Component} from 'react';
+import * as d3 from 'd3';
 
 class ModalThree extends Component {
 
-    constructor(props){
-        super(props);
-        this.zoomSwitchHandle = this.zoomSwitchHandle.bind(this);
-    }
+    componentDidMount(){
+        const width = window.frameElement ? 960 : window.innerWidth - 100,
+            height = window.frameElement ? 600 : window.innerHeight - 100;
 
-    zoomSwitchHandle = (value) => {
-        if(value >= 200){
-            this.props.click(this.props.viewChild);
-        }
-        if(value <= 20){
-            this.props.click(this.props.viewParent);
-        }
+        var data =
+            [
+                { "team": "Optimus Prime" },
+                { "team": "Bumblebee" },
+                { "team": "Starscream" }
+            ];
+
+            var dataLinks = [
+                { source: 0, target: 1 },
+                { source: 1, target: 2 },
+                { source: 2, target: 0 },
+            ];
+
+            const force = d3.forceSimulation()
+                            .nodes(data)
+                            .force("link", d3.forceLink(dataLinks).distance(300))
+                            .force('charge', d3.forceManyBody(-20))
+                            .force('center', d3.forceCenter(width / 2, height / 2))
+                            .force('collide', d3.forceCollide(100))
+                            .force('x', d3.forceX(width / 2).strength(0.5))
+                            .force('y',  d3.forceY(height / 2).strength(0.5))
+                            .on('tick', tick);
+
+            var svg = d3.select(".modalThree").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+
+            var links = svg.selectAll(".link")
+                    .data(dataLinks)
+                    .enter().append("line")
+                    .attr("class", "link");
+
+            var nodes = svg.selectAll(".node")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", 40)
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended)
+                    );
+
+            var text = svg.selectAll(".text")
+                            .data(data)
+                            .enter()
+                            .append('foreignObject')
+                            .attr("class", "text")
+                            .attr('width', 150);
+
+            text.append('xhtml:h3').attr('class', 'header').style("font-size", "14px").text(function (d) { return d.team; })
+
+            function tick() {
+                links.attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+
+                nodes.attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; });
+
+                text.attr("x", function (d) { return d.x - 75; })
+                    .attr("y", function (d) { return d.y - 115; });
+            }
+
+            function dragstarted(d) {
+                if (!d3.event.active) force.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            } 
+           
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            }
+          
+            function dragended(d) {
+                if (!d3.event.active) force.alphaTarget(1);
+                d.fx = null;
+                d.fy = null;
+            }
     }
 
     render(){
         return(
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
-                    <g>
-                        <ellipse ry="50" rx="50" cy="92" cx="100" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
-                        <ellipse ry="50" rx="50" cy="92" cx="500" strokeWidth="5" stroke="#fff" fill="#555"></ellipse>
-                        <ellipse ry="50" rx="50" cy="450" cx="313" strokeWidth="3" stroke="#fff" fill="#555"></ellipse>
-                        <line y2="92" x2="450" y1="92" x1="150" strokeWidth="1.5" stroke="#fff" fill="none"></line>
-                        <line stroke="#fff" transform="rotate(-60 383,160) " y2="240" x2="450" y1="240" x1="145" strokeWidth="3" fill="none"></line>
-                        <line transform="rotate(60 200,180) " y2="240" x2="120" y1="240" x1="445" strokeWidth="3" stroke="#fff" fill="none"></line>
-                    </g>
-                </svg>    
+            <div className="modalThree">
+                  
             </div>
         );
     }
