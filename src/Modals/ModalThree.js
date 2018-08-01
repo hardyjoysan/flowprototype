@@ -22,7 +22,7 @@ class ModalThree extends Component {
 
             const force = d3.forceSimulation()
                             .nodes(data)
-                            .force("link", d3.forceLink(dataLinks).distance(300))
+                            .force("link", d3.forceLink(dataLinks).distance(Math.min(width, height)/1.5))
                             .force('charge', d3.forceManyBody(-20))
                             .force('center', d3.forceCenter(width / 2, height / 2))
                             .force('collide', d3.forceCollide(100))
@@ -85,7 +85,7 @@ class ModalThree extends Component {
             }
           
             function dragended(d) {
-                if (!d3.event.active) force.alphaTarget(1);
+                if (!d3.event.active) force.alphaTarget(0);
                 d.fx = null;
                 d.fy = null;
             }
