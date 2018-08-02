@@ -1,37 +1,141 @@
 import React, {Component} from 'react';
+import * as d3 from 'd3';
 
 class ModalFour extends Component {
 
-    constructor(props){
-        super(props);
-        this.zoomSwitchHandle = this.zoomSwitchHandle.bind(this);
-    }
+    componentDidMount(){
 
-    zoomSwitchHandle = (value) => {
-        if(value >= 200){
-            this.props.click(this.props.viewChild);
-        }
-        if(value <= 20){
-            this.props.click(this.props.viewParent);
-        }
+        const comProps = this.props;
+
+        const width = window.frameElement ? 960 : window.innerWidth - 100,
+            height = window.frameElement ? 600 : window.innerHeight - 100;
+
+        var data =
+            [
+                { "developer": "Mikaela Banes", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "developer": "Sam Witwicky", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "developer": "Robert Epps", "children": [{"api":"API1"}, {"api":"API2"}] },
+                { "developer": "Simmons", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API2"}] },
+            ];
+
+            d3.forceSimulation().on('tick', tick);
+
+            var i = 0;
+            data.links = [];
+            data.forEach(function(node) {
+                var angle = (i / (data.length / 2)) * Math.PI;
+                node.x = (width / 2) + 200 * Math.cos(angle);
+                node.y = (height / 2) + 200 * Math.sin(angle);
+                if (i === data.length - 1) {
+                    data.links[i] = { source: data[i], target: data[0] };
+                } else {
+                    data.links[i] = { source: data[i], target: data[i + 1] };
+                }
+                
+                if (node.children) {
+                    var nodechild = node.children;
+                    node.links = [];
+                    var j = 0;
+                    nodechild.forEach(function(child){
+                        var angle = (j / (nodechild.length / 2)) * Math.PI;
+                        child.x = node.x + 160 * Math.cos(angle);
+                        child.y = node.y + 160 * Math.sin(angle);
+                        child.r = 10;
+                        node.links[j] = { source: node, target: child };
+                        j++;
+                    });
+                }
+                i++;
+            });
+
+            const zoom = d3.zoom()
+                        .scaleExtent([0.5, 10])
+                        .translateExtent([[0, 0], [width, height]])
+                        .extent([[0, 0], [width, height]])
+                        .on("zoom", zoomed);
+
+            var svg = d3.select(".modalFour").append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .call(zoom);
+
+            var teams = data;
+
+            teams.forEach(function (apis) {
+                if (apis.children) {
+                    var x = 0;
+                    svg.selectAll(".apiline"+x)
+                    .data(apis.links)
+                    .enter()
+                    .append("line")
+                    .attr("class", ".apiline"+x)
+                    .attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+                    apis.children.forEach(function(api) {
+                        const g_t = svg.append('g').attr("class", "api");
+                        g_t.append('circle')
+                        .attr('r', api.r)
+                        .attr('cx', api.x)
+                        .attr('cy', api.y);
+                    })
+                    x++;
+                }
+                
+            });
+
+            var links = svg.selectAll(".link")
+                    .data(data.links)
+                    .enter().append("line")
+                    .attr("class", "link");
+
+            var nodes = svg.selectAll(".node")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", 40);
+
+            var text = svg.selectAll(".text")
+                            .data(data)
+                            .enter()
+                            .append('foreignObject')
+                            .attr("class", "text")
+                            .attr('width', 150);
+
+            text.append('xhtml:h3').attr('class', 'header')
+                .style("font-size", "14px")
+                .text(function (d) { return d.developer; });
+
+            function tick() {
+                links.attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+
+                nodes.attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; });
+
+                text.attr("x", function (d) { return d.x - 75; })
+                    .attr("y", function (d) { return d.y - 115; });
+            }
+
+            function zoomed() {
+                svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+                if (d3.event.transform.k >= 10) {
+                    comProps.zoomHandle(comProps.viewChild)
+                }
+                if (d3.event.transform.k <= 0.5) {
+                    comProps.zoomHandle(comProps.viewParent)
+                }
+            }
     }
 
     render(){
         return(
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
-                    <g>
-                        <ellipse stroke="#fff" ry="45" rx="45" cy="100" cx="100" strokeWidth="3" fill="none"/>
-                        <ellipse stroke="#fff" ry="45" rx="45" cy="100" cx="500" strokeWidth="5" fill="#555"/>
-                        <ellipse stroke="#fff" ry="45" rx="45" cy="500" cx="500" strokeWidth="3" fill="none"/>
-                        <ellipse stroke="#fff" ry="45" rx="45" cy="500" cx="100" strokeWidth="3" fill="none"/>
-                        <line stroke="#fff" y2="501" x2="455.5149" y1="501" x1="145.5" strokeWidth="3" fill="none"/>
-                        <line y2="454.16125" x2="498.5" y1="144" x1="498.5" strokeWidth="3" stroke="#fff" fill="none"/>
-                        <line y2="101" x2="455.66022" y1="101" x1="143.5" strokeWidth="3" stroke="#fff" fill="none"/>
-                        <line y2="453.31597" x2="99.5" y1="143" x1="99.5" strokeWidth="3" stroke="#fff" fill="none"/>
-                    </g>
-                </svg>
-            </div>
+            <div className="modalFour"></div>
         );
     }
 }
