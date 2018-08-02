@@ -5,6 +5,9 @@ import * as d3 from 'd3';
 class ModalOne extends Component {
 
     componentDidMount(){
+
+        const comProps = this.props;
+
         const width = window.frameElement ? 960 : window.innerWidth - 100,
             height = window.frameElement ? 600 : window.innerHeight - 100;
 
@@ -21,13 +24,7 @@ class ModalOne extends Component {
                 }
             ]
         }];
-
-        var zoom = d3.zoom()
-                    .extent([[0, 0], [width, height]])
-                    .scaleExtent([0.5, 10])
-                    .translateExtent([[0, 0], [width, height]])
-                    .on("zoom", zoomed);
-
+        
         data.forEach(function(node){
             node.cx = width/2;
             node.cy = height/2;
@@ -63,6 +60,12 @@ class ModalOne extends Component {
                 }
             }
         });
+
+        const zoom = d3.zoom()
+                    .extent([[0, 0], [width, height]])
+                    .scaleExtent([0.5, 10])
+                    .translateExtent([[0, 0], [width, height]])
+                    .on("zoom", zoomed);
         
         const svg = d3.select(".modalOne")
                     .append("svg")
@@ -124,6 +127,13 @@ class ModalOne extends Component {
 
         function zoomed() {
             svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+
+            if (d3.event.transform.k >= 10) {
+                comProps.zoomHandle(comProps.viewChild)
+            }
+            if (d3.event.transform.k <= 0.5) {
+                comProps.zoomHandle(comProps.viewParent)
+            }
         }
     }
 

@@ -5,6 +5,8 @@ class ModalTwo extends Component {
 
     componentDidMount() {
 
+        const comProps = this.props;
+
         const width = window.frameElement ? 960 : window.innerWidth - 100,
             height = window.frameElement ? 600 : window.innerHeight - 100;
 
@@ -82,7 +84,7 @@ class ModalTwo extends Component {
             i++;
         });
 
-        var zoom = d3.zoom()
+        const zoom = d3.zoom()
             .scaleExtent([0.5, 10])
             .translateExtent([[0, 0], [width, height]])
             .extent([[0, 0], [width, height]])
@@ -143,6 +145,12 @@ class ModalTwo extends Component {
 
         function zoomed() {
             svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+            if (d3.event.transform.k >= 10) {
+                comProps.zoomHandle(comProps.viewChild)
+            }
+            if (d3.event.transform.k <= 0.5) {
+                comProps.zoomHandle(comProps.viewParent)
+            }
         }
     }
 
