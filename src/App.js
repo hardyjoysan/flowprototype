@@ -42,7 +42,7 @@ class App extends Component {
         return <ModalFive zoomHandle={this.switchViewHandle} viewChild="6" viewParent="4"/>
 
       case "6":
-        return <ModalSix zoomHandle={this.switchViewHandle} viewParent="4"/>
+        return <ModalSix zoomHandle={this.switchViewHandle} viewParent="5"/>
 
       default:
         return <ModalOne zoomHandle={this.switchViewHandle} viewChild="2"/>
