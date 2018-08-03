@@ -64,11 +64,11 @@ class ModalThree extends Component {
             teams.forEach(function (apis) {
                 if (apis.children) {
                     var x = 0;
-                    svg.selectAll(".apiline"+x)
+                    svg.selectAll("apiline"+x)
                     .data(apis.links)
                     .enter()
                     .append("line")
-                    .attr("class", ".apiline"+x)
+                    .attr("class", "apiline apiline"+x)
                     .attr("x1", function(d) { return d.source.x; })
                     .attr("y1", function(d) { return d.source.y; })
                     .attr("x2", function(d) { return d.target.x; })
@@ -80,6 +80,12 @@ class ModalThree extends Component {
                         .attr('r', api.r)
                         .attr('cx', api.x)
                         .attr('cy', api.y);
+                        g_t.append("image")
+                            .attr("xlink:href", "/api_ico.svg")
+                            .attr("x", api.x - 6)
+                            .attr("y", api.y - 6)
+                            .attr("width", 12)
+                            .attr("height", 12);
                     })
                     x++;
                 }

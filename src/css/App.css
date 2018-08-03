@@ -41,3 +41,11 @@ h3.header{
     stroke-width: 3px;
     fill: #555;
 }
+.modalThree .apiline, .modalFour .apiline{
+    stroke-width: 1px;
+    stroke: #484848;
+}
+.modalThree .api circle, .modalFour .api circle{
+    stroke-width: 0;
+    fill: #8a8a8a;
+}
