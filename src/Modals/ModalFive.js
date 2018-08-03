@@ -91,6 +91,13 @@ class ModalFive extends Component {
                     return d.data.name;
                 })
 
+            nodeEnter.append("image").filter(function(d){ return !d.children; })
+                    .attr("xlink:href", "/api_ico.svg")
+                    .attr("x", -8)
+                    .attr("y", -8)
+                    .attr("width", 16)
+                    .attr("height", 16);
+
             nodeEnter.append("text")
                 .attr("dy", 6)
                 .attr("x", function (d) {

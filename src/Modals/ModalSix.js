@@ -70,13 +70,6 @@ class ModalSix extends Component {
         node.append("circle")
             .attr("r", 50)
             .style("fill", "#000");
-    
-        // node.append("image")
-        //     .attr("xlink:href", "https://github.com/favicon.ico")
-        //     .attr("x", -8)
-        //     .attr("y", -8)
-        //     .attr("width", 16)
-        //     .attr("height", 16);
             
         node.append("text")
         .attr("x", -5)
