@@ -52,8 +52,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* { this.renderSwitch(this.state.modalView)} */}
-        <ModalThree />
+        { this.renderSwitch(this.state.modalView)}
       </div>
     );
   }
