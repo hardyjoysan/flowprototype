@@ -91,14 +91,14 @@ class ModalFive extends Component {
                     return d.data.name;
                 })
 
-            nodeEnter.append("image").filter(function(d){ return !d.children; })
+            nodeEnter.append("image")
                     .attr("xlink:href", "/api_ico.svg")
-                    .attr("x", -8)
-                    .attr("y", -8)
-                    .attr("width", 16)
-                    .attr("height", 16);
+                    .attr("x", function (d) { return d.children ? -20 : -6; })
+                    .attr("y", function (d) { return d.children ? -20 : -6; })
+                    .attr("width", function (d) { return d.children ? 40 : 12; })
+                    .attr("height", function (d) { return d.children ? 40 : 12; });
 
-            nodeEnter.append("text")
+            nodeEnter.append("text").filter(function(d){ return !d.children; })
                 .attr("dy", 6)
                 .attr("x", function (d) {
                     return d.children ? 12 : 25;

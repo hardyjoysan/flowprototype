@@ -34,12 +34,10 @@ h3.header{
 }
 .modalFive .node circle{
     stroke-width: 0;
-    fill: #484848;
+    fill: #8a8a8a;
 }
 .modalFive .node.parent circle{
     stroke: #fff;
-    stroke-width: 3px;
-    fill: #555;
 }
 .modalThree .apiline, .modalFour .apiline{
     stroke-width: 1px;
