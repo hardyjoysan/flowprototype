@@ -13,11 +13,11 @@ class ModalTwo extends Component {
         const data = [
             {
                 "division": "Stockholm",
-                "children": [{ "team": "Optimus Prime" }, { "team": "Bumblebee" }, { "team": "Starscream" }]
+                "children": [{ "team": "Optimus Prime", "icon": "optimus.svg"}, { "team": "Avengers", "icon": "avenger.svg"}, { "team": "Starscream", "icon": "starscream.svg" }]
             },
             {
                 "division": "Gothenburg",
-                "children": [{ "team": "Megatron" }]
+                "children": [{ "team": "Flash", "icon": "flash.svg" }]
             }
         ];
 
@@ -49,7 +49,6 @@ class ModalTwo extends Component {
                 node_child.forEach(function(child) {
 
                     var child_len = (node_child.length > 2) ? 2 : node_child.length;
-                    console.log(child_len);
                     if (j >= 2) {
                         return false;
                     }else{
@@ -83,6 +82,8 @@ class ModalTwo extends Component {
 
             i++;
         });
+
+        console.log(data);
 
         const zoom = d3.zoom()
             .scaleExtent([0.5, 10])
@@ -134,12 +135,29 @@ class ModalTwo extends Component {
             .attr("x2", function(d) { return d.target.cx; })
             .attr("y2", function(d) { return d.target.cy; });
 
+            var x = 0;
             teams.children.forEach(function(team) {
+                if (x >= 2) { return false; }
                 const g_t = svg.append('g').attr("class", "team");
                 g_t.append('circle')
                 .attr('r', team.r)
                 .attr('cx', team.cx)
                 .attr('cy', team.cy);
+                g_t.append('foreignObject')
+                .attr('x', team.cx - 50)
+                .attr('y', team.cy - 100)
+                .attr('width', 100)
+                .append('xhtml:h3')
+                .attr('class', 'header')
+                .style("font-size", "10px")
+                .text(team.team);
+                g_t.append("image")
+                .attr("xlink:href", "/"+team.icon)
+                .attr("x", team.cx - 30)
+                .attr("y", team.cy - 30)
+                .attr("width", 60)
+                .attr("height", 60);
+                x++;
             })
         });
 
