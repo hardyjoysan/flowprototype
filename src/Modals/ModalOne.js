@@ -16,11 +16,11 @@ class ModalOne extends Component {
             "children":[
                 {
                     "division":"Stockholm",
-                    "children":[{"team": "Optimus Prime"},{"team": "Bumblebee"},{"team": "Starscream"}]
+                    "children":[{ "team": "Optimus Prime", "icon": "optimus.svg"}, { "team": "Avengers", "icon": "avenger.svg"}, { "team": "Starscream", "icon": "starscream.svg" }]
                 },
                 {
                     "division": "Gothenburg",
-                    "children":[{"team": "Megatron"}]
+                    "children":[{ "team": "Flash", "icon": "flash.svg" }]
                 }
             ]
         }];
@@ -35,28 +35,64 @@ class ModalOne extends Component {
                 if (node.children.length > 1) {
 
                     node.links = [];
+                    var node_child = node.children;
+                    var i = 0;
 
-                    for (var i = 0; i < node.children.length; i++) {
-                        
-                        var angle = (i / (node.children.length/2)) * Math.PI;
-    
-                        var child_r = node.r / (node.children.length * 2);
-                        if (node.children[i].children && node.children[i].children.length > 1) {
+                    node_child.forEach(function(divs) {
+
+                        var angle = (i / (node_child.length/2)) * Math.PI;
+                        var child_r = node.r / (node_child.length * 2);
+
+                        if (node_child[i].children && node_child[i].children.length > 1) {
                             child_r = child_r + 50;
                         }
     
                         var orbit_r = node.r - child_r - 30;
-                        node.children[i].id = "div_"+i;
-                        node.children[i].cx = node.cx + orbit_r * Math.cos(angle);
-                        node.children[i].cy = node.cy + orbit_r * Math.sin(angle);
-                        node.children[i].r = child_r;
+                        divs.id = "div_"+i;
+                        divs.cx = node.cx + orbit_r * Math.cos(angle);
+                        divs.cy = node.cy + orbit_r * Math.sin(angle);
+                        divs.r = child_r;
 
-                        if (i === node.children.length - 1) {
-                            node.links[i] = { source : node.children[i], target : node.children[0]};
+                        if (i === node_child.length - 1) {
+                            node.links[i] = { source : divs, target : node_child[0]};
                         }else{
-                            node.links[i] = { source : node.children[i], target : node.children[i+1] };
+                            node.links[i] = { source : divs, target : node_child[i+1] };
                         }
-                    }
+
+                        var team_child = divs.children;
+                        divs.links = [];
+                        var j = 0;
+                        
+                        team_child.forEach(function(team) {
+                            var child_len = (team_child.length > 2) ? 2 : team_child.length;
+                            if (j >= 2) {
+                                return false;
+                            }else{
+        
+                                var angle = (j / (child_len / 2)) * Math.PI;
+                                var team_r = divs.r / (child_len * 2);
+        
+                                if(child_len > 1){
+                                    var teamorbit_r = divs.r - team_r - (child_len * 10);
+                                    team.cx = divs.cx + teamorbit_r * Math.cos(angle);
+                                    team.cy = divs.cy + teamorbit_r * Math.sin(angle);
+                                    team.r = team_r;
+                                }else{
+                                    team.cx = divs.cx;
+                                    team.cy = divs.cy;
+                                    team.r = divs.r - 40;
+                                }
+        
+                                if (j === child_len - 1) {
+                                    divs.links[j] = { source: team, target: team_child[0] };
+                                } else {
+                                    divs.links[j] = { source: team, target: team_child[j + 1] };
+                                }
+                            }
+                            j++;
+                        });
+                        i++;
+                    });
                 }
             }
         });
@@ -86,7 +122,7 @@ class ModalOne extends Component {
 
             g_c.append('foreignObject')
                 .attr('x', function(d) { return d.cx - 50; })
-                .attr('y', function(d) { return d.cy - d.r - 70; })
+                .attr('y', function(d) { return d.cy - d.r - 60; })
                 .attr('width', 100)
                 .append('xhtml:h3')
                 .attr('class', 'header')
@@ -112,15 +148,47 @@ class ModalOne extends Component {
 
                 g_d.append('foreignObject')
                 .attr('x', function(d) { return d.cx - 50; })
-                .attr('y', function(d) { return d.cy - d.r - 70; })
+                .attr('y', function(d) { return d.cy - d.r - 45; })
                 .attr('width', 100)
                 .append('xhtml:h3')
                 .attr('class', 'header')
                 .style("font-size", "10px")
                 .text(function(d) { return d.division; });
 
-                comp.children.forEach(function(team) {
-                    //console.log(team.children);
+                comp.children.forEach(function(divs) {
+                    svg.selectAll(".teamline")
+                    .data(divs.links)
+                    .enter()
+                    .append("line")
+                    .attr("class", "teamline")
+                    .attr("x1", function(d) { return d.source.cx; })
+                    .attr("y1", function(d) { return d.source.cy; })
+                    .attr("x2", function(d) { return d.target.cx; })
+                    .attr("y2", function(d) { return d.target.cy; });
+                    var x = 0;
+                    divs.children.forEach(function(team) {
+                        if (x >= 2) { return false; }
+                        const g_t = svg.append('g').attr("class", "team");
+                        g_t.append('circle')
+                        .attr('r', team.r)
+                        .attr('cx', team.cx)
+                        .attr('cy', team.cy);
+                        g_t.append('foreignObject')
+                        .attr('x', team.cx - 35)
+                        .attr('y', team.cy - 65)
+                        .attr('width', 70)
+                        .append('xhtml:h3')
+                        .attr('class', 'header')
+                        .style("font-size", "8px")
+                        .text(team.team);
+                        g_t.append("image")
+                        .attr("xlink:href", "/"+team.icon)
+                        .attr("x", team.cx - 15)
+                        .attr("y", team.cy - 15)
+                        .attr("width", 30)
+                        .attr("height", 30);
+                        x++;
+                    });
                 });
             }
         });

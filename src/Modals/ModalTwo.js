@@ -158,7 +158,7 @@ class ModalTwo extends Component {
                 .attr("width", 60)
                 .attr("height", 60);
                 x++;
-            })
+            });
         });
 
         function zoomed() {
