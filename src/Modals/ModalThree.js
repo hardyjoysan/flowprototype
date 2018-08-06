@@ -12,9 +12,9 @@ class ModalThree extends Component {
 
         var data =
             [
-                { "team": "Optimus Prime", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "team": "Bumblebee", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "team": "Starscream", "children": [{"api":"API1"}, {"api":"API2"}] },
+                { "team": "Optimus Prime", "icon": "optimus.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "team": "Bumblebee", "icon": "avenger.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "team": "Starscream", "icon": "starscream.svg", "children": [{"api":"API1"}, {"api":"API2"}] },
             ];
 
             d3.forceSimulation().on('tick', tick);
@@ -113,6 +113,17 @@ class ModalThree extends Component {
             text.append('xhtml:h3').attr('class', 'header')
                 .style("font-size", "14px")
                 .text(function (d) { return d.team; });
+
+            svg.selectAll(".icons")
+                .data(data)
+                .enter()
+                .append("image")
+                .attr("class", "icons")
+                .attr("xlink:href", function (d) { return d.icon; })
+                .attr("x", function (d) { return d.x - 25; })
+                .attr("y", function (d) { return d.y - 25; })
+                .attr("width", 50)
+                .attr("height", 50);
 
             function tick() {
                 links.attr("x1", function (d) { return d.source.x; })
