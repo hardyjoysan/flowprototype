@@ -12,10 +12,10 @@ class ModalFour extends Component {
 
         var data =
             [
-                { "developer": "Mikaela Banes", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "developer": "Sam Witwicky", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "developer": "Robert Epps", "children": [{"api":"API1"}, {"api":"API2"}] },
-                { "developer": "Simmons", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API2"}] },
+                { "developer": "Sam Witwicky", "icon": "dev1.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "developer": "Mikaela Banes", "icon": "dev2.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "developer": "Robert Epps", "icon": "dev3.svg", "children": [{"api":"API1"}, {"api":"API2"}] },
+                { "developer": "Natasha Romanov", "icon": "dev4.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API2"}] },
             ];
 
             d3.forceSimulation().on('tick', tick);
@@ -115,6 +115,17 @@ class ModalFour extends Component {
             text.append('xhtml:h3').attr('class', 'header')
                 .style("font-size", "14px")
                 .text(function (d) { return d.developer; });
+            
+            svg.selectAll(".avatar")
+                .data(data)
+                .enter()
+                .append("image")
+                .attr("class", "avatar")
+                .attr("xlink:href", function (d) { return d.icon; })
+                .attr("x", function (d) { return d.x - 39; })
+                .attr("y", function (d) { return d.y - 39; })
+                .attr("width", 78)
+                .attr("height", 78);
 
             function tick() {
                 links.attr("x1", function (d) { return d.source.x; })
