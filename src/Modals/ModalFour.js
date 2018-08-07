@@ -26,6 +26,7 @@ class ModalFour extends Component {
                 var angle = (i / (data.length / 2)) * Math.PI;
                 node.x = (width / 2) + 200 * Math.cos(angle);
                 node.y = (height / 2) + 200 * Math.sin(angle);
+                node.id = "dev"+i;
                 if (i === data.length - 1) {
                     data.links[i] = { source: data[i], target: data[0] };
                 } else {
@@ -115,17 +116,22 @@ class ModalFour extends Component {
             text.append('xhtml:h3').attr('class', 'header')
                 .style("font-size", "14px")
                 .text(function (d) { return d.developer; });
-            
-            svg.selectAll(".avatar")
+
+            svg.append("defs")
+                .selectAll("pattern")
                 .data(data)
                 .enter()
+                .append("pattern")
+                .attr("id", function (d) { return d.id; })
+                .attr("width", 1)
+                .attr("height", 1)
+                .attr("patternUnits", "objectBoundingBox")
                 .append("image")
-                .attr("class", "avatar")
-                .attr("xlink:href", function (d) { return d.icon; })
-                .attr("x", function (d) { return d.x - 39; })
-                .attr("y", function (d) { return d.y - 39; })
-                .attr("width", 78)
-                .attr("height", 78);
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", 80)
+                .attr("height", 80)
+                .attr("xlink:href", function (d) { return d.icon; });
 
             function tick() {
                 links.attr("x1", function (d) { return d.source.x; })
@@ -134,7 +140,8 @@ class ModalFour extends Component {
                     .attr("y2", function (d) { return d.target.y; });
 
                 nodes.attr("cx", function (d) { return d.x; })
-                    .attr("cy", function (d) { return d.y; });
+                    .attr("cy", function (d) { return d.y; })
+                    .style("fill", function(d){ return "url(#" + d.id + ")"; });
 
                 text.attr("x", function (d) { return d.x - 75; })
                     .attr("y", function (d) { return d.y - 115; });
