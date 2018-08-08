@@ -95,8 +95,8 @@ class ModalTwo extends Component {
             .append("svg")
             .attr("width", width)
             .attr("height", height)
-            .append("g")
-            .call(zoom);
+            .call(zoom)
+            .append("g");
 
         svg.selectAll("line")
             .data(data.links)

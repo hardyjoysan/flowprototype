@@ -58,8 +58,8 @@ class ModalFour extends Component {
             var svg = d3.select(".modalFour").append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .append("g")
-                .call(zoom);
+                .call(zoom)
+                .append("g");
 
             var teams = data;
 

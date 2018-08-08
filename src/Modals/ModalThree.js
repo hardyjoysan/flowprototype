@@ -13,7 +13,7 @@ class ModalThree extends Component {
         var data =
             [
                 { "team": "Optimus Prime", "icon": "optimus.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "team": "Bumblebee", "icon": "avenger.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "team": "Avengers", "icon": "avenger.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
                 { "team": "Starscream", "icon": "starscream.svg", "children": [{"api":"API1"}, {"api":"API2"}] },
             ];
 
@@ -56,8 +56,8 @@ class ModalThree extends Component {
             var svg = d3.select(".modalThree").append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .append("g")
-                .call(zoom);
+                .call(zoom)
+                .append("g");
 
             var teams = data;
 
