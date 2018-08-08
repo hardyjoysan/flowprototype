@@ -48,7 +48,7 @@ class ModalThree extends Component {
             });
 
             const zoom = d3.zoom()
-                        .scaleExtent([0.5, 10])
+                        .scaleExtent([0.6, 2.5])
                         .translateExtent([[0, 0], [width, height]])
                         .extent([[0, 0], [width, height]])
                         .on("zoom", zoomed);
@@ -140,10 +140,10 @@ class ModalThree extends Component {
 
             function zoomed() {
                 svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
-                if (d3.event.transform.k >= 10) {
+                if (d3.event.transform.k >= 2.5) {
                     comProps.zoomHandle(comProps.viewChild)
                 }
-                if (d3.event.transform.k <= 0.5) {
+                if (d3.event.transform.k <= 0.6) {
                     comProps.zoomHandle(comProps.viewParent)
                 }
             }
