@@ -65,6 +65,7 @@ class ModalFive extends Component {
 
             var linkEnter = linkSvg.enter()
                 .append("line")
+                .style("stroke", "#ffeb3b")
                 .attr("class", "link");
 
             linkSvg = linkEnter.merge(linkSvg)
