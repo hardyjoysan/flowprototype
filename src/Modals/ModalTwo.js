@@ -31,7 +31,7 @@ class ModalTwo extends Component {
             if (node.children && node.children.length > 1) {
                 node_r = node_r + 50;
             }
-            var orbit_r = Math.min(width, height) - node_r - 250;
+            var orbit_r = Math.min(width, height) - (node_r*2.5);
             node.cx = (width / 2) + orbit_r * Math.cos(angle);
             node.cy = (height / 2) + orbit_r * Math.sin(angle);
             node.r = node_r;
@@ -57,14 +57,14 @@ class ModalTwo extends Component {
                         var child_r = node_r / (child_len * 2);
 
                         if(child_len > 1){
-                            var childorbit_r = node_r - child_r - (child_len * 120);
+                            var childorbit_r = node_r - (child_r*2) - child_len;
                             child.cx = node.cx + childorbit_r * Math.cos(angle);
                             child.cy = node.cy + childorbit_r * Math.sin(angle);
                             child.r = child_r;
                         }else{
                             child.cx = node.cx;
                             child.cy = node.cy;
-                            child.r = child_r - 20;
+                            child.r = child_r/1.5;
                         }
 
                         if (j === child_len - 1) {
@@ -153,10 +153,10 @@ class ModalTwo extends Component {
                 .text(team.team);
                 g_t.append("image")
                 .attr("xlink:href", "/"+team.icon)
-                .attr("x", team.cx - 30)
-                .attr("y", team.cy - 30)
-                .attr("width", 60)
-                .attr("height", 60);
+                .attr("x", team.cx - (team.r*1.2/2))
+                .attr("y", team.cy - (team.r*1.2/2))
+                .attr("width", team.r*1.2)
+                .attr("height", team.r*1.2);
                 x++;
             });
         });

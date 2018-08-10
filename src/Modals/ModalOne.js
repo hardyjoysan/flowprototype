@@ -44,7 +44,7 @@ class ModalOne extends Component {
                         var child_r = node.r / (node_child.length * 2);
 
                         if (node_child[i].children && node_child[i].children.length > 1) {
-                            child_r = child_r + 50;
+                            var child_r = node.r / node_child.length;
                         }
     
                         var orbit_r = node.r - child_r - 30;
@@ -70,17 +70,17 @@ class ModalOne extends Component {
                             }else{
         
                                 var angle = (j / (child_len / 2)) * Math.PI;
-                                var team_r = divs.r / (child_len * 2);
+                                var team_r = divs.r / (child_len * 3);
         
                                 if(child_len > 1){
-                                    var teamorbit_r = divs.r - team_r - (child_len * 10);
+                                    var teamorbit_r = divs.r - (team_r*3) - child_len;
                                     team.cx = divs.cx + teamorbit_r * Math.cos(angle);
                                     team.cy = divs.cy + teamorbit_r * Math.sin(angle);
                                     team.r = team_r;
                                 }else{
                                     team.cx = divs.cx;
                                     team.cy = divs.cy;
-                                    team.r = divs.r - 40;
+                                    team.r = team_r;
                                 }
         
                                 if (j === child_len - 1) {
@@ -183,10 +183,10 @@ class ModalOne extends Component {
                         .text(team.team);
                         g_t.append("image")
                         .attr("xlink:href", "/"+team.icon)
-                        .attr("x", team.cx - 15)
-                        .attr("y", team.cy - 15)
-                        .attr("width", 30)
-                        .attr("height", 30);
+                        .attr("x", team.cx - (team.r*1.2/2))
+                        .attr("y", team.cy - (team.r*1.2/2))
+                        .attr("width", team.r*1.2)
+                        .attr("height", team.r*1.2);
                         x++;
                     });
                 });
