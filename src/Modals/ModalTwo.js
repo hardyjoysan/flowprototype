@@ -27,26 +27,23 @@ class ModalTwo extends Component {
         data.forEach(function (node) {
 
             var angle = (i / (data.length / 2)) * Math.PI;
+            var node_r = Math.min(width, height) / (data.length * 2.5);
+            if (node.children && node.children.length > 1) {
+                node_r = node_r + 50;
+            }
+            var orbit_r = Math.min(width, height) - (node_r*2.5);
 
             if (Math.min(width, height) > 1080) {
-                var node_r = 800 / (data.length * 2.5);
+                node_r = 800 / (data.length * 2.5);
                 if (node.children && node.children.length > 1) {
                     node_r = node_r + 50;
                 }
-                var orbit_r = 800 - (node_r*2.5);
-                node.cx = (width / 2) + orbit_r * Math.cos(angle);
-                node.cy = (height / 2) + orbit_r * Math.sin(angle);
-                node.r = node_r;
-            }else{
-                var node_r = Math.min(width, height) / (data.length * 2.5);
-                if (node.children && node.children.length > 1) {
-                    node_r = node_r + 50;
-                }
-                var orbit_r = Math.min(width, height) - (node_r*2.5);
-                node.cx = (width / 2) + orbit_r * Math.cos(angle);
-                node.cy = (height / 2) + orbit_r * Math.sin(angle);
-                node.r = node_r;
+                orbit_r = 800 - (node_r*2.5);
             }
+
+            node.cx = (width / 2) + orbit_r * Math.cos(angle);
+            node.cy = (height / 2) + orbit_r * Math.sin(angle);
+            node.r = node_r;
 
 
             

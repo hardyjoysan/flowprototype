@@ -197,17 +197,16 @@ class ModalOne extends Component {
                                 .attr('y', function(d) { return d.cy - d.r - 60; });
 
             forObj.append('xhtml:h3')
-                .attr('class', 'header')
-                .html(function(d) { return d.company; });
-            //     .on("click", function(d) { titleCard(d) });
-            // var card = forObj.append('xhtml:div').attr("class", "titlecard");
-            //     card.append("h4").html("Developer Status");
-
-            // const titleCard = (d) => {
+                .attr('class', 'header').attr('pointer-events', 'none')
+                .text(function(d) { return d.company; });
                 
-            // }
-
-            
+            var card = forObj.append('xhtml:div').attr("class", "titlecard");
+                card.append("h4").text("Developer Status");
+                card.append('xhtml:ul').attr("class", "devstatus")
+                    .html('<li>+3243 Developers</li><li>70% Active Developers</li><li>80% Publishing Developers</li><li>50% Consuming Developers</li>');
+                card.append("h4").text("API & Flow Status");
+                card.append('xhtml:ul').attr("class", "apistatus")
+                    .html('<li>633 APIs</li><li>30% Reuse Rate</li><li>36756 Flows</li><li>18 Avg Consumers per API</li>');
         });
 
         function zoomed() {

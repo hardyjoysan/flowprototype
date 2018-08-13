@@ -61,8 +61,6 @@ class ModalFive extends Component {
             linkSvg = svg.selectAll(".link")
                         .data(links, function (d) { return d.target.id; })
 
-                        console.log(nodes);
-
             var linkEnter = linkSvg.enter()
                 .append("line")
                 .style("stroke", "#ffeb3b")

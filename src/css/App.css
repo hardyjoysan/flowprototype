@@ -33,25 +33,6 @@ h3.header{
 .modalOne .team circle{
     fill: #fff;
 }
-.modalOne .foreign_title h3{
-    width: 100px;
-}
-.modalOne .foreign_title .titlecard{
-    width: 400px;
-    height: 400px;
-    background: #9a9a9a;
-    border-top-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    position: relative;
-    left: -95px;
-}
-.modalOne .foreign_title .titlecard h4{
-    margin: 0;
-    display: block;
-    padding: 15px;
-    text-align: left;
-    color: #fff;
-}
 .modalTwo .team circle{
     fill: #fff;
 }
@@ -76,4 +57,53 @@ h3.header{
 .modalFour .api circle{
     stroke-width: 0;
     fill: #8a8a8a;
+}
+.foreign_title h3{
+    width: 100px;
+}
+.foreign_title .titlecard{
+    width: 300px;
+    height: 380px;
+    background: #9a9a9a;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    position: relative;
+    left: -120px;
+    top: -15px;
+    padding: 25px;
+    z-index: -1;
+    text-align: left;
+    -webkit-box-shadow: 0px 4px 10px 0px #3e3c3c;
+    -moz-box-shadow: 0px 4px 10px 0px #3e3c3c;
+    box-shadow: 0px 4px 10px 0px #3e3c3c;
+}
+.foreign_title .titlecard h4{
+    margin: 0;
+    display: block;
+    padding: 10px 0;
+    text-align: left;
+    color: #fff;
+}
+.foreign_title .titlecard ul.devstatus{
+    margin: 0;
+    padding: 0px 20px;
+    list-style: inside;
+}
+.foreign_title .titlecard ul.devstatus li{
+    margin: 10px 0;
+    color: #333;
+    font-size: 12px;
+}
+.foreign_title .titlecard ul.apistatus{
+    margin: 0;
+    padding: 0px 20px;
+    list-style: inside;
+}
+.foreign_title .titlecard ul.apistatus li{
+    margin: 10px 0;
+    color: #333;
+    font-size: 12px;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
 }
