@@ -62,6 +62,7 @@ h3.header{
     width: 100px;
 }
 .foreign_title .titlecard{
+    display: none;
     width: 300px;
     height: 380px;
     background: #9a9a9a;
@@ -76,6 +77,9 @@ h3.header{
     -webkit-box-shadow: 0px 4px 10px 0px #3e3c3c;
     -moz-box-shadow: 0px 4px 10px 0px #3e3c3c;
     box-shadow: 0px 4px 10px 0px #3e3c3c;
+}
+.foreign_title .titlecard.active{
+    display: block;
 }
 .foreign_title .titlecard h4{
     margin: 0;

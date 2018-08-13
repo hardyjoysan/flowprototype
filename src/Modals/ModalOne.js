@@ -198,7 +198,10 @@ class ModalOne extends Component {
 
             forObj.append('xhtml:h3')
                 .attr('class', 'header').attr('pointer-events', 'none')
-                .text(function(d) { return d.company; });
+                .text(function(d) { return d.company; })
+                .on("click", function() {
+                    d3.select('.titlecard').classed("active", d3.select('.titlecard').classed("active") ? false : true);
+                });
                 
             var card = forObj.append('xhtml:div').attr("class", "titlecard");
                 card.append("h4").text("Developer Status");
