@@ -27,14 +27,29 @@ class ModalTwo extends Component {
         data.forEach(function (node) {
 
             var angle = (i / (data.length / 2)) * Math.PI;
-            var node_r = Math.min(width, height) / (data.length * 2.5);
-            if (node.children && node.children.length > 1) {
-                node_r = node_r + 50;
+
+            if (Math.min(width, height) > 1080) {
+                var node_r = 800 / (data.length * 2.5);
+                if (node.children && node.children.length > 1) {
+                    node_r = node_r + 50;
+                }
+                var orbit_r = 800 - (node_r*2.5);
+                node.cx = (width / 2) + orbit_r * Math.cos(angle);
+                node.cy = (height / 2) + orbit_r * Math.sin(angle);
+                node.r = node_r;
+            }else{
+                var node_r = Math.min(width, height) / (data.length * 2.5);
+                if (node.children && node.children.length > 1) {
+                    node_r = node_r + 50;
+                }
+                var orbit_r = Math.min(width, height) - (node_r*2.5);
+                node.cx = (width / 2) + orbit_r * Math.cos(angle);
+                node.cy = (height / 2) + orbit_r * Math.sin(angle);
+                node.r = node_r;
             }
-            var orbit_r = Math.min(width, height) - (node_r*2.5);
-            node.cx = (width / 2) + orbit_r * Math.cos(angle);
-            node.cy = (height / 2) + orbit_r * Math.sin(angle);
-            node.r = node_r;
+
+
+            
 
             if (i === data.length - 1) {
                 data.links[i] = { source: data[i], target: data[0] };
@@ -82,9 +97,7 @@ class ModalTwo extends Component {
 
             i++;
         });
-
-        console.log(data);
-
+        
         const zoom = d3.zoom()
             .scaleExtent([0.6, 2.5])
             .translateExtent([[0, 0], [width, height]])
@@ -95,8 +108,8 @@ class ModalTwo extends Component {
             .append("svg")
             .attr("width", width)
             .attr("height", height)
-            .append("g")
-            .call(zoom);
+            .call(zoom)
+            .append("g");
 
         svg.selectAll("line")
             .data(data.links)

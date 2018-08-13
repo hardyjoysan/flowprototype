@@ -28,9 +28,29 @@ h3.header{
     border-radius: 20px;
     font-size: 16px;
     cursor: pointer;
+    margin: 0;
 }
 .modalOne .team circle{
     fill: #fff;
+}
+.modalOne .foreign_title h3{
+    width: 100px;
+}
+.modalOne .foreign_title .titlecard{
+    width: 400px;
+    height: 400px;
+    background: #9a9a9a;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    position: relative;
+    left: -95px;
+}
+.modalOne .foreign_title .titlecard h4{
+    margin: 0;
+    display: block;
+    padding: 15px;
+    text-align: left;
+    color: #fff;
 }
 .modalTwo .team circle{
     fill: #fff;

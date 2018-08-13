@@ -26,9 +26,17 @@ class ModalOne extends Component {
         }];
         
         data.forEach(function(node){
-            node.cx = width/2;
-            node.cy = height/2;
-            node.r = Math.min(width, height)/2.5;
+
+            if (Math.min(width, height) > 1080) {
+                node.cx = width/2;
+                node.cy = height/2;
+                node.r = 800/2.5;
+            }else{
+                node.cx = width/2;
+                node.cy = height/2;
+                node.r = Math.min(width, height)/2.5;
+            }
+            
 
             if (node.children && node.children.length !== 0) {
                 
@@ -44,7 +52,7 @@ class ModalOne extends Component {
                         var child_r = node.r / (node_child.length * 2);
 
                         if (node_child[i].children && node_child[i].children.length > 1) {
-                            var child_r = node.r / node_child.length;
+                            child_r = node.r / node_child.length;
                         }
     
                         var orbit_r = node.r - child_r - 30;
@@ -70,7 +78,7 @@ class ModalOne extends Component {
                             }else{
         
                                 var angle = (j / (child_len / 2)) * Math.PI;
-                                var team_r = divs.r / (child_len * 3);
+                                var team_r = divs.r / (child_len *  3);
         
                                 if(child_len > 1){
                                     var teamorbit_r = divs.r - (team_r*3) - child_len;
@@ -112,85 +120,94 @@ class ModalOne extends Component {
         
         data.forEach(function(comp){
 
-            const g_c = svg.selectAll('.company')
-            .data(data).enter().append('g').attr("class", "company");
+            const company = svg.selectAll('.company')
+                                .data(data).enter().append('g').attr("class", "company");
 
-            g_c.append('circle')
-            .attr('r', function(d) {return d.r})
-            .attr('cx', function(d) {return d.cx})
-            .attr('cy', function(d) {return d.cy});
-
-            g_c.append('foreignObject')
-                .attr('x', function(d) { return d.cx - 50; })
-                .attr('y', function(d) { return d.cy - d.r - 60; })
-                .attr('width', 100)
-                .append('xhtml:h3')
-                .attr('class', 'header')
-                .html(function(d) { return d.company; });
+            company.append('circle')
+                    .attr('r', function(d) {return d.r})
+                    .attr('cx', function(d) {return d.cx})
+                    .attr('cy', function(d) {return d.cy});
 
             if (comp.children) {
 
-                svg.selectAll("line")
-                .data(comp.links)
-                .enter()
-                .append("line")
-                .attr("x1", function(d) { return d.source.cx; })
-                .attr("y1", function(d) { return d.source.cy; })
-                .attr("x2", function(d) { return d.target.cx; })
-                .attr("y2", function(d) { return d.target.cy; });
-
-                const g_d = svg.selectAll('.division')
-                .data(comp.children).enter().append('g').attr("class", "division");
-                g_d.append('circle')
-                .attr('r', function(d) {return d.r})
-                .attr('cx', function(d) {return d.cx})
-                .attr('cy', function(d) {return d.cy});
-
-                g_d.append('foreignObject')
-                .attr('x', function(d) { return d.cx - 50; })
-                .attr('y', function(d) { return d.cy - d.r - 45; })
-                .attr('width', 100)
-                .append('xhtml:h3')
-                .attr('class', 'header')
-                .style("font-size", "10px")
-                .text(function(d) { return d.division; });
-
-                comp.children.forEach(function(divs) {
-                    svg.selectAll(".teamline")
-                    .data(divs.links)
+                company.selectAll("line")
+                    .data(comp.links)
                     .enter()
                     .append("line")
-                    .attr("class", "teamline")
                     .attr("x1", function(d) { return d.source.cx; })
                     .attr("y1", function(d) { return d.source.cy; })
                     .attr("x2", function(d) { return d.target.cx; })
                     .attr("y2", function(d) { return d.target.cy; });
+
+                const division = company.selectAll('.division')
+                                        .data(comp.children).enter().append('g').attr("class", "division");
+                division.append('circle')
+                    .attr('r', function(d) {return d.r})
+                    .attr('cx', function(d) {return d.cx})
+                    .attr('cy', function(d) {return d.cy});
+
+                division.append('foreignObject')
+                    .attr('x', function(d) { return d.cx - 50; })
+                    .attr('y', function(d) { return d.cy - d.r - 45; })
+                    .attr('width', 100)
+                    .append('xhtml:h3')
+                    .attr('class', 'header')
+                    .style("font-size", "10px")
+                    .text(function(d) { return d.division; });
+
+                comp.children.forEach(function(divs) {
+                    division.selectAll(".teamline")
+                        .data(divs.links)
+                        .enter()
+                        .append("line")
+                        .attr("class", "teamline")
+                        .attr("x1", function(d) { return d.source.cx; })
+                        .attr("y1", function(d) { return d.source.cy; })
+                        .attr("x2", function(d) { return d.target.cx; })
+                        .attr("y2", function(d) { return d.target.cy; });
                     var x = 0;
                     divs.children.forEach(function(team) {
                         if (x >= 2) { return false; }
-                        const g_t = svg.append('g').attr("class", "team");
-                        g_t.append('circle')
-                        .attr('r', team.r)
-                        .attr('cx', team.cx)
-                        .attr('cy', team.cy);
-                        g_t.append('foreignObject')
-                        .attr('x', team.cx - 35)
-                        .attr('y', team.cy - 65)
-                        .attr('width', 70)
-                        .append('xhtml:h3')
-                        .attr('class', 'header')
-                        .style("font-size", "8px")
-                        .text(team.team);
-                        g_t.append("image")
-                        .attr("xlink:href", "/"+team.icon)
-                        .attr("x", team.cx - (team.r*1.2/2))
-                        .attr("y", team.cy - (team.r*1.2/2))
-                        .attr("width", team.r*1.2)
-                        .attr("height", team.r*1.2);
+                        const gteam = division.append('g').attr("class", "team");
+                        gteam.append('circle')
+                            .attr('r', team.r)
+                            .attr('cx', team.cx)
+                            .attr('cy', team.cy);
+                        gteam.append('foreignObject')
+                            .attr('x', team.cx - 35)
+                            .attr('y', team.cy - 65)
+                            .attr('width', 70)
+                            .append('xhtml:h3')
+                            .attr('class', 'header')
+                            .style("font-size", "8px")
+                            .text(team.team);
+                        gteam.append("image")
+                            .attr("xlink:href", "/"+team.icon)
+                            .attr("x", team.cx - (team.r*1.2/2))
+                            .attr("y", team.cy - (team.r*1.2/2))
+                            .attr("width", team.r*1.2)
+                            .attr("height", team.r*1.2);
                         x++;
                     });
                 });
             }
+
+            var forObj = company.append('foreignObject').attr("class", "foreign_title")
+                                .attr('x', function(d) { return d.cx - 50; })
+                                .attr('y', function(d) { return d.cy - d.r - 60; });
+
+            forObj.append('xhtml:h3')
+                .attr('class', 'header')
+                .html(function(d) { return d.company; });
+            //     .on("click", function(d) { titleCard(d) });
+            // var card = forObj.append('xhtml:div').attr("class", "titlecard");
+            //     card.append("h4").html("Developer Status");
+
+            // const titleCard = (d) => {
+                
+            // }
+
+            
         });
 
         function zoomed() {
