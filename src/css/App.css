@@ -55,7 +55,7 @@ h3.header.pointer{
     fill: #a3a3a3;
 }
 .apiModal line{
-    stroke-width: 3px;
+    stroke-width: 5px;
 }
 .apiModal .node circle{
     stroke-width: 0;
