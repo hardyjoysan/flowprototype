@@ -1,6 +1,6 @@
 .App{
     text-align: center;
-    background: #555;
+    background: #7a7a7a;
     margin: 50px;
 }
 rect{
@@ -15,20 +15,23 @@ text{
 circle{
     stroke: #fff;
     stroke-width: 3px;
-    fill: #555;
+    fill: #6f6f71;
 }
 line{
     stroke-width: 3px;
     stroke: #ffffff;
 }
 h3.header{
-    background: #303030;
+    background: #5f5f5f;
     color: #fff;
     padding: 6px 0;
     border-radius: 20px;
     font-size: 16px;
-    cursor: pointer;
+    cursor: default;
     margin: 0;
+}
+h3.header.pointer{
+    cursor: pointer;
 }
 .companyModal .team circle{
     fill: #fff;
@@ -64,8 +67,8 @@ h3.header{
 .foreign_title .titlecard{
     display: none;
     width: 300px;
-    height: 380px;
-    background: #9a9a9a;
+    height: 355px;
+    background: #b1b1b1;
     border-top-right-radius: 30px;
     border-bottom-left-radius: 30px;
     position: relative;
@@ -74,9 +77,9 @@ h3.header{
     padding: 25px;
     z-index: -1;
     text-align: left;
-    -webkit-box-shadow: 0px 4px 10px 0px #3e3c3c;
-    -moz-box-shadow: 0px 4px 10px 0px #3e3c3c;
-    box-shadow: 0px 4px 10px 0px #3e3c3c;
+    -webkit-box-shadow: 0px 2px 3px 0px #5f5f5f;
+    -moz-box-shadow: 0px 2px 3px 0px #5f5f5f;
+    box-shadow: 0px 2px 3px 0px #5f5f5f;
 }
 .foreign_title .titlecard.active{
     display: block;
@@ -84,23 +87,58 @@ h3.header{
 .foreign_title .titlecard h4{
     margin: 0;
     display: block;
-    padding: 10px 0;
+    padding: 10px 0 0;
     text-align: left;
     color: #fff;
 }
 .foreign_title .titlecard ul.devstatus{
     margin: 0;
-    padding: 0px 20px;
+    padding: 0;
     list-style: inside;
 }
 .foreign_title .titlecard ul.devstatus li{
-    margin: 10px 0;
+    margin: 5px 0;
     color: #333;
     font-size: 12px;
+    list-style: none;
+    padding-left: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-repeat: no-repeat;
+    background-image: url(/user.svg);
+    background-size: 30px;
+}
+.foreign_title .titlecard ul.devstatus li.devcount{
+    padding-left: 0;
+    background: none;
+}
+.foreign_title .titlecard ul.devstatus li.devcount img{
+    display: inline-block;
+    vertical-align: top;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: relative;
+}
+.foreign_title .titlecard ul.devstatus li.devcount img:nth-child(1){
+    z-index: 3;
+}
+.foreign_title .titlecard ul.devstatus li.devcount img:nth-child(2){
+    left: -20px;
+    z-index: 2;
+}
+.foreign_title .titlecard ul.devstatus li.devcount img:nth-child(3){
+    left: -40px;
+    z-index: 1;
+}
+.foreign_title .titlecard ul.devstatus li.devcount span{
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: -35px;
 }
 .foreign_title .titlecard ul.apistatus{
     margin: 0;
-    padding: 0px 20px;
+    padding: 0px;
     list-style: inside;
 }
 .foreign_title .titlecard ul.apistatus li{
@@ -110,4 +148,27 @@ h3.header{
     width: 50%;
     display: inline-block;
     vertical-align: top;
+}
+.foreign_title .titlecard ul.apistatus li span.api_ico{
+    display: block;
+    width: 40px;
+    height: 40px;
+    float: left;
+    background-color: #a3a3a3;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-image: url(/api_ico.svg);
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+    margin-top: -5px;
+}
+.foreign_title .titlecard ul.apistatus li:nth-child(2) span.api_ico{
+    background-color: #a5e8a5;
+}
+.foreign_title .titlecard ul.apistatus li:nth-child(3) span.api_ico{
+    background-color: #a5d3e8;
+}
+.foreign_title .titlecard ul.apistatus li:nth-child(4) span.api_ico{
+    background-color: #e5e8a5;
 }

@@ -134,6 +134,7 @@ class CompanyModal extends Component {
                     .data(comp.links)
                     .enter()
                     .append("line")
+                    .style("stroke", "#a3a3a3")
                     .attr("x1", function(d) { return d.source.cx; })
                     .attr("y1", function(d) { return d.source.cy; })
                     .attr("x2", function(d) { return d.target.cx; })
@@ -160,6 +161,7 @@ class CompanyModal extends Component {
                         .data(divs.links)
                         .enter()
                         .append("line")
+                        .style("stroke", "#a3a3a3")
                         .attr("class", "teamline")
                         .attr("x1", function(d) { return d.source.cx; })
                         .attr("y1", function(d) { return d.source.cy; })
@@ -193,23 +195,28 @@ class CompanyModal extends Component {
             }
 
             var forObj = company.append('foreignObject').attr("class", "foreign_title")
-                                .attr('x', function(d) { return d.cx - 50; })
-                                .attr('y', function(d) { return d.cy - d.r - 60; });
+                                .attr('x', function(d) { return d.cx - 90; })
+                                .attr('y', function(d) { return d.cy - d.r - 50; });
 
             forObj.append('xhtml:h3')
-                .attr('class', 'header').attr('pointer-events', 'none')
+                .attr('class', 'header pointer')
+                .attr('pointer-events', 'none')
+                .style("width", "180px")
                 .text(function(d) { return d.company; })
                 .on("click", function() {
                     d3.select('.titlecard').classed("active", d3.select('.titlecard').classed("active") ? false : true);
                 });
                 
-            var card = forObj.append('xhtml:div').attr("class", "titlecard");
+            var card = forObj.append('xhtml:div')
+                            .attr("class", "titlecard")
+                            .style("left", "-80px");
+                            
                 card.append("h4").text("Developer Status");
                 card.append('xhtml:ul').attr("class", "devstatus")
-                    .html('<li>+3243 Developers</li><li>70% Active Developers</li><li>80% Publishing Developers</li><li>50% Consuming Developers</li>');
+                    .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
                 card.append("h4").text("API & Flow Status");
                 card.append('xhtml:ul').attr("class", "apistatus")
-                    .html('<li>633 APIs</li><li>30% Reuse Rate</li><li>36756 Flows</li><li>18 Avg Consumers per API</li>');
+                    .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
         });
 
         function zoomed() {
