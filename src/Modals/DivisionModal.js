@@ -32,15 +32,11 @@ class DivisionModal extends Component {
                 node_r = node_r + 50;
             }
             var orbit_r = Math.min(width, height) - (node_r*2.5);
-
-            if (Math.min(width, height) > 1080) {
-                node_r = 800 / (data.length * 2.5);
-                if (node.children && node.children.length > 1) {
-                    node_r = node_r + 50;
-                }
-                orbit_r = 800 - (node_r*2.5);
+            node_r = 600 / (data.length * 2.5);
+            if (node.children && node.children.length > 1) {
+                node_r = node_r + 50;
             }
-
+            orbit_r = 600 - (node_r*2.5);
             node.cx = (width / 2) + orbit_r * Math.cos(angle);
             node.cy = (height / 2) + orbit_r * Math.sin(angle);
             node.r = node_r;
@@ -126,7 +122,7 @@ class DivisionModal extends Component {
 
         g_d.append('foreignObject')
             .attr('x', function (d) { return d.cx - 50; })
-            .attr('y', function (d) { return d.cy - d.r - 70; })
+            .attr('y', function (d) { return d.cy - d.r - 50; })
             .attr('width', 100)
             .append('xhtml:h3')
             .attr('class', 'header')
@@ -155,7 +151,7 @@ class DivisionModal extends Component {
                 .attr('cy', team.cy);
                 g_t.append('foreignObject')
                 .attr('x', team.cx - 50)
-                .attr('y', team.cy - 100)
+                .attr('y', team.cy - 80)
                 .attr('width', 100)
                 .append('xhtml:h3')
                 .attr('class', 'header')

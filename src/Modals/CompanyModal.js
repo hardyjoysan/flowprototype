@@ -27,15 +27,9 @@ class CompanyModal extends Component {
         
         data.forEach(function(node){
 
-            if (Math.min(width, height) > 1080) {
-                node.cx = width/2;
-                node.cy = height/2;
-                node.r = 800/2.5;
-            }else{
-                node.cx = width/2;
-                node.cy = height/2;
-                node.r = Math.min(width, height)/2.5;
-            }
+            node.cx = width/2;
+            node.cy = height/2;
+            node.r = 600/2.5;
             
 
             if (node.children && node.children.length !== 0) {
@@ -141,7 +135,7 @@ class CompanyModal extends Component {
                     .attr("y2", function(d) { return d.target.cy; });
 
                 const division = company.selectAll('.division')
-                                        .data(comp.children).enter().append('g').attr("class", "division");
+                                .data(comp.children).enter().append('g').attr("class", "division");
                 division.append('circle')
                     .attr('r', function(d) {return d.r})
                     .attr('cx', function(d) {return d.cx})
@@ -149,7 +143,7 @@ class CompanyModal extends Component {
 
                 division.append('foreignObject')
                     .attr('x', function(d) { return d.cx - 50; })
-                    .attr('y', function(d) { return d.cy - d.r - 45; })
+                    .attr('y', function(d) { return d.cy - d.r - 30; })
                     .attr('width', 100)
                     .append('xhtml:h3')
                     .attr('class', 'header')
@@ -177,7 +171,7 @@ class CompanyModal extends Component {
                             .attr('cy', team.cy);
                         gteam.append('foreignObject')
                             .attr('x', team.cx - 35)
-                            .attr('y', team.cy - 65)
+                            .attr('y', team.cy - 45)
                             .attr('width', 70)
                             .append('xhtml:h3')
                             .attr('class', 'header')
@@ -210,7 +204,7 @@ class CompanyModal extends Component {
             var card = forObj.append('xhtml:div')
                             .attr("class", "titlecard")
                             .style("left", "-80px");
-                            
+
                 card.append("h4").text("Developer Status");
                 card.append('xhtml:ul').attr("class", "devstatus")
                     .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');

@@ -41,10 +41,10 @@ class ApiModal extends Component {
         }
 
         force = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(200))
+            .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(250))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(width / 2, height / 2))
-            .force('collide', d3.forceCollide(100))
+            .force('collide', d3.forceCollide(140))
             .on("tick", ticked);
 
         update();
@@ -58,7 +58,7 @@ class ApiModal extends Component {
 
             var linkEnter = linkSvg.enter()
                 .append("line")
-                .style("stroke", "#ffeb3b")
+                .style("stroke", "#e5e8a5")
                 .attr("class", "link");
 
             linkSvg = linkEnter.merge(linkSvg)
@@ -79,18 +79,14 @@ class ApiModal extends Component {
                     .on("end", dragended))
 
             nodeEnter.append("circle")
-                .attr("r", function (d) { return d.children ? 60 : 15; })
-                .append("title")
-                .text(function (d) {
-                    return d.data.name;
-                })
+                .attr("r", function (d) { return d.children ? 70 : 30; });
 
             nodeEnter.append("image")
                     .attr("xlink:href", "/api_ico.svg")
-                    .attr("x", function (d) { return d.children ? -20 : -6; })
-                    .attr("y", function (d) { return d.children ? -20 : -6; })
-                    .attr("width", function (d) { return d.children ? 40 : 12; })
-                    .attr("height", function (d) { return d.children ? 40 : 12; });
+                    .attr("x", function (d) { return d.children ? -25 : -10; })
+                    .attr("y", function (d) { return d.children ? -25 : -10; })
+                    .attr("width", function (d) { return d.children ? 50 : 20; })
+                    .attr("height", function (d) { return d.children ? 50 : 20; });
 
             nodeEnter.append("text").filter(function(d){ return !d.children; })
                 .attr("dy", 6)
@@ -99,9 +95,6 @@ class ApiModal extends Component {
                 })
                 .style("text-anchor", function (d) {
                     return d.children ? "end" : "start";
-                })
-                .text(function (d) {
-                    return d.data.name;
                 });
 
             nodeSvg = nodeEnter.merge(nodeSvg);

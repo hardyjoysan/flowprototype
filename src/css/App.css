@@ -41,26 +41,30 @@ h3.header.pointer{
 }
 .teamModal .apiline, .developerModal .apiline{
     stroke-width: 1px;
-    stroke: #484848;
+    stroke: #6f6f71;
 }
 .teamModal circle{
     stroke-width: 0;
-    fill: #ffffff;
+    fill: #fff;
+}
+.teamModal .api circle{
+    fill: #a3a3a3;
 }
 .developerModal .api circle{
     stroke-width: 0;
-    fill: #8a8a8a;
+    fill: #a3a3a3;
 }
 .apiModal line{
     stroke-width: 3px;
 }
 .apiModal .node circle{
     stroke-width: 0;
-    fill: #8a8a8a;
+    fill: #a3a3a3;
 }
 .apiModal .node.parent circle{
     stroke: #fff;
 }
+
 .foreign_title h3{
     width: 100px;
 }

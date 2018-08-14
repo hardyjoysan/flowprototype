@@ -37,8 +37,8 @@ class TeamModal extends Component {
                     var j = 0;
                     nodechild.forEach(function(child){
                         var angle = (j / (nodechild.length / 2)) * Math.PI;
-                        child.x = node.x + 160 * Math.cos(angle);
-                        child.y = node.y + 160 * Math.sin(angle);
+                        child.x = node.x + 150 * Math.cos(angle);
+                        child.y = node.y + 150 * Math.sin(angle);
                         child.r = 10;
                         node.links[j] = { source: node, target: child };
                         j++;
@@ -135,7 +135,7 @@ class TeamModal extends Component {
                     .attr("cy", function (d) { return d.y; });
 
                 text.attr("x", function (d) { return d.x - 75; })
-                    .attr("y", function (d) { return d.y - 115; });
+                    .attr("y", function (d) { return d.y - 100; });
             }
 
             function zoomed() {
