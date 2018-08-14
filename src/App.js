@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './css/App.css';
 
-import ModalOne from './Modals/ModalOne';
-import ModalTwo from './Modals/ModalTwo';
-import ModalThree from './Modals/ModalThree';
-import ModalFour from './Modals/ModalFour';
-import ModalFive from './Modals/ModalFive';
-import ModalSix from './Modals/ModalSix';
+import CompanyModal from './Modals/CompanyModal';
+import DivisionModal from './Modals/DivisionModal';
+import TeamModal from './Modals/TeamModal';
+import DeveloperModal from './Modals/DeveloperModal';
+import ApiModal from './Modals/ApiModal';
 
 class App extends Component {
 
@@ -27,25 +26,22 @@ class App extends Component {
   renderSwitch = (param) => {
     switch(param){
       case "1":
-        return <ModalOne zoomHandle={this.switchViewHandle} viewChild="2"/>
+        return <CompanyModal zoomHandle={this.switchViewHandle} viewChild="2"/>
 
       case "2":
-        return <ModalTwo zoomHandle={this.switchViewHandle} viewChild="3" viewParent="1"/>
+        return <DivisionModal zoomHandle={this.switchViewHandle} viewChild="3" viewParent="1"/>
 
       case "3":
-        return <ModalThree zoomHandle={this.switchViewHandle} viewChild="4" viewParent="2"/>
+        return <TeamModal zoomHandle={this.switchViewHandle} viewChild="4" viewParent="2"/>
 
       case "4":
-        return <ModalFour zoomHandle={this.switchViewHandle} viewChild="5" viewParent="3"/>
+        return <DeveloperModal zoomHandle={this.switchViewHandle} viewChild="5" viewParent="3"/>
 
       case "5":
-        return <ModalFive zoomHandle={this.switchViewHandle} viewChild="6" viewParent="4"/>
-
-      case "6":
-        return <ModalSix zoomHandle={this.switchViewHandle} viewParent="5"/>
+        return <ApiModal zoomHandle={this.switchViewHandle} viewParent="4"/>
 
       default:
-        return <ModalOne zoomHandle={this.switchViewHandle} viewChild="2"/>
+        return <CompanyModal zoomHandle={this.switchViewHandle} viewChild="2"/>
     }
   }
 

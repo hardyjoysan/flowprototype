@@ -30,33 +30,33 @@ h3.header{
     cursor: pointer;
     margin: 0;
 }
-.modalOne .team circle{
+.companyModal .team circle{
     fill: #fff;
 }
-.modalTwo .team circle{
+.divisionModal .team circle{
     fill: #fff;
 }
-.modalFive line{
-    stroke-width: 3px;
-}
-.modalFive .node circle{
-    stroke-width: 0;
-    fill: #8a8a8a;
-}
-.modalFive .node.parent circle{
-    stroke: #fff;
-}
-.modalThree .apiline, .modalFour .apiline{
+.teamModal .apiline, .developerModal .apiline{
     stroke-width: 1px;
     stroke: #484848;
 }
-.modalThree circle{
+.teamModal circle{
     stroke-width: 0;
     fill: #ffffff;
 }
-.modalFour .api circle{
+.developerModal .api circle{
     stroke-width: 0;
     fill: #8a8a8a;
+}
+.apiModal line{
+    stroke-width: 3px;
+}
+.apiModal .node circle{
+    stroke-width: 0;
+    fill: #8a8a8a;
+}
+.apiModal .node.parent circle{
+    stroke: #fff;
 }
 .foreign_title h3{
     width: 100px;

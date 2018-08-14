@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import * as d3 from 'd3';
 
-class ModalFour extends Component {
+class TeamModal extends Component {
 
     componentDidMount(){
 
@@ -12,10 +12,9 @@ class ModalFour extends Component {
 
         var data =
             [
-                { "developer": "Sam Witwicky", "icon": "dev1.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "developer": "Mikaela Banes", "icon": "dev2.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
-                { "developer": "Robert Epps", "icon": "dev3.svg", "children": [{"api":"API1"}, {"api":"API2"}] },
-                { "developer": "Natasha Romanov", "icon": "dev4.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API2"}] },
+                { "team": "Optimus Prime", "icon": "optimus.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "team": "Avengers", "icon": "avenger.svg", "children": [{"api":"API1"}, {"api":"API2"}, {"api":"API3"}] },
+                { "team": "Starscream", "icon": "starscream.svg", "children": [{"api":"API1"}, {"api":"API2"}] },
             ];
 
             d3.forceSimulation().on('tick', tick);
@@ -26,7 +25,6 @@ class ModalFour extends Component {
                 var angle = (i / (data.length / 2)) * Math.PI;
                 node.x = (width / 2) + 200 * Math.cos(angle);
                 node.y = (height / 2) + 200 * Math.sin(angle);
-                node.id = "dev"+i;
                 if (i === data.length - 1) {
                     data.links[i] = { source: data[i], target: data[0] };
                 } else {
@@ -55,7 +53,7 @@ class ModalFour extends Component {
                         .extent([[0, 0], [width, height]])
                         .on("zoom", zoomed);
 
-            var svg = d3.select(".modalFour").append("svg")
+            var svg = d3.select(".teamModal").append("svg")
                 .attr("width", width)
                 .attr("height", height)
                 .call(zoom)
@@ -70,7 +68,7 @@ class ModalFour extends Component {
                     .data(apis.links)
                     .enter()
                     .append("line")
-                    .attr("class", "apiline  apiline"+x)
+                    .attr("class", "apiline apiline"+x)
                     .attr("x1", function(d) { return d.source.x; })
                     .attr("y1", function(d) { return d.source.y; })
                     .attr("x2", function(d) { return d.target.x; })
@@ -82,13 +80,12 @@ class ModalFour extends Component {
                         .attr('r', api.r)
                         .attr('cx', api.x)
                         .attr('cy', api.y);
-
                         g_t.append("image")
-                        .attr("xlink:href", "/api_ico.svg")
-                        .attr("x", api.x - 6)
-                        .attr("y", api.y - 6)
-                        .attr("width", 12)
-                        .attr("height", 12);
+                            .attr("xlink:href", "/api_ico.svg")
+                            .attr("x", api.x - 6)
+                            .attr("y", api.y - 6)
+                            .attr("width", 12)
+                            .attr("height", 12);
                     })
                     x++;
                 }
@@ -115,23 +112,18 @@ class ModalFour extends Component {
 
             text.append('xhtml:h3').attr('class', 'header')
                 .style("font-size", "14px")
-                .text(function (d) { return d.developer; });
+                .text(function (d) { return d.team; });
 
-            svg.append("defs")
-                .selectAll("pattern")
+            svg.selectAll(".icons")
                 .data(data)
                 .enter()
-                .append("pattern")
-                .attr("id", function (d) { return d.id; })
-                .attr("width", 1)
-                .attr("height", 1)
-                .attr("patternUnits", "objectBoundingBox")
                 .append("image")
-                .attr("x", 0)
-                .attr("y", 0)
-                .attr("width", 80)
-                .attr("height", 80)
-                .attr("xlink:href", function (d) { return d.icon; });
+                .attr("class", "icons")
+                .attr("xlink:href", function (d) { return d.icon; })
+                .attr("x", function (d) { return d.x - 25; })
+                .attr("y", function (d) { return d.y - 25; })
+                .attr("width", 50)
+                .attr("height", 50);
 
             function tick() {
                 links.attr("x1", function (d) { return d.source.x; })
@@ -140,8 +132,7 @@ class ModalFour extends Component {
                     .attr("y2", function (d) { return d.target.y; });
 
                 nodes.attr("cx", function (d) { return d.x; })
-                    .attr("cy", function (d) { return d.y; })
-                    .style("fill", function(d){ return "url(#" + d.id + ")"; });
+                    .attr("cy", function (d) { return d.y; });
 
                 text.attr("x", function (d) { return d.x - 75; })
                     .attr("y", function (d) { return d.y - 115; });
@@ -160,9 +151,9 @@ class ModalFour extends Component {
 
     render(){
         return(
-            <div className="modalFour"></div>
+            <div className="teamModal"></div>
         );
     }
 }
 
-export default ModalFour;
+export default TeamModal;

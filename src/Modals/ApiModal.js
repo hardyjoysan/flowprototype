@@ -1,9 +1,7 @@
-import React, {
-    Component
-} from 'react';
+import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-class ModalFive extends Component {
+class ApiModal extends Component {
 
     componentDidMount() {
         const comProps = this.props;
@@ -28,7 +26,7 @@ class ModalFive extends Component {
                     .extent([[0, 0], [width, height]])
                     .on("zoom", zoomed);
 
-        var svg = d3.select(".modalFive").append("svg")
+        var svg = d3.select(".apiModal").append("svg")
             .attr("width", width)
             .attr("height", height)
             .call(zoom)
@@ -37,9 +35,6 @@ class ModalFive extends Component {
 
         function zoomed() {
             svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
-            if (d3.event.transform.k >= 2.5) {
-                comProps.zoomHandle(comProps.viewChild)
-            }
             if (d3.event.transform.k <= 0.6) {
                 comProps.zoomHandle(comProps.viewParent)
             }
@@ -162,9 +157,9 @@ class ModalFive extends Component {
 
     render() {
         return (
-            <div className="modalFive"></div>
+            <div className="apiModal"></div>
         );
     }
 }
 
-export default ModalFive;
+export default ApiModal;

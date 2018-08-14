@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-class ModalTwo extends Component {
+class DivisionModal extends Component {
 
     componentDidMount() {
 
@@ -101,7 +101,7 @@ class ModalTwo extends Component {
             .extent([[0, 0], [width, height]])
             .on("zoom", zoomed);
 
-        const svg = d3.select(".modalTwo")
+        const svg = d3.select(".divisionModal")
             .append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -184,9 +184,9 @@ class ModalTwo extends Component {
 
     render() {
         return (
-            <div className="modalTwo"></div>
+            <div className="divisionModal"></div>
         );
     }
 }
 
-export default ModalTwo;
+export default DivisionModal;
