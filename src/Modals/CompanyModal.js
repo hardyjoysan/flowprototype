@@ -100,9 +100,7 @@ class CompanyModal extends Component {
         });
 
         const zoom = d3.zoom()
-                    .extent([[0, 0], [width, height]])
                     .scaleExtent([1, 2.5])
-                    .translateExtent([[0, 0], [width, height]])
                     .on("zoom", zoomed);
         
         const svg = d3.select(".companyModal")

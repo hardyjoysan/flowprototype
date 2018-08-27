@@ -22,8 +22,6 @@ class ApiModal extends Component {
 
         const zoom = d3.zoom()
                     .scaleExtent([0.6, 2.5])
-                    .translateExtent([[0, 0], [width, height]])
-                    .extent([[0, 0], [width, height]])
                     .on("zoom", zoomed);
 
         var svg = d3.select(".apiModal").append("svg")
