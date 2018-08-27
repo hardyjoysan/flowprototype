@@ -190,7 +190,7 @@ class CompanyModal extends Component {
 
             var forObj = company.append('foreignObject').attr("class", "foreign_title")
                                 .attr('x', function(d) { return d.cx - 90; })
-                                .attr('y', function(d) { return d.cy - d.r - 50; });
+                                .attr('y', function(d) { return d.cy - d.r - 40; });
 
             forObj.append('xhtml:h3')
                 .attr('class', 'header pointer')

@@ -67,6 +67,8 @@ h3.header.pointer{
 
 .foreign_title h3{
     width: 100px;
+    position: relative;
+    z-index: 2;
 }
 .foreign_title .titlecard{
     display: none;
@@ -79,7 +81,7 @@ h3.header.pointer{
     left: -120px;
     top: -15px;
     padding: 25px;
-    z-index: -1;
+    z-index: 1;
     text-align: left;
     -webkit-box-shadow: 0px 2px 3px 0px #5f5f5f;
     -moz-box-shadow: 0px 2px 3px 0px #5f5f5f;
