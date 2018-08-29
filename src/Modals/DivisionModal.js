@@ -27,23 +27,15 @@ class DivisionModal extends Component {
         data.forEach(function (node) {
 
             var angle = (i / (data.length / 2)) * Math.PI;
-            var node_r = Math.min(width, height) / (data.length * 2.5);
+            var node_r = 600 / (data.length * 2.5);
             if (node.children && node.children.length > 1) {
                 node_r = node_r + 50;
             }
-            var orbit_r = Math.min(width, height) - (node_r*2.5);
-            node_r = 600 / (data.length * 2.5);
-            if (node.children && node.children.length > 1) {
-                node_r = node_r + 50;
-            }
-            orbit_r = 600 - (node_r*2.5);
+            var orbit_r = 600 - (node_r*2.5);
             node.cx = (width / 2) + orbit_r * Math.cos(angle);
             node.cy = (height / 2) + orbit_r * Math.sin(angle);
             node.r = node_r;
-
-
             
-
             if (i === data.length - 1) {
                 data.links[i] = { source: data[i], target: data[0] };
             } else {
@@ -112,25 +104,15 @@ class DivisionModal extends Component {
             .attr("y2", function (d) { return d.target.cy; });
 
         const g_d = svg.selectAll('.division')
-            .data(data).enter().append('g').attr("class", "division");
+                        .data(data).enter().append('g').attr("class", "division");
+
         g_d.append('circle')
             .attr('r', function (d) { return d.r })
             .attr('cx', function (d) { return d.cx })
             .attr('cy', function (d) { return d.cy });
 
-        g_d.append('foreignObject')
-            .attr('x', function (d) { return d.cx - 50; })
-            .attr('y', function (d) { return d.cy - d.r - 50; })
-            .attr('width', 100)
-            .append('xhtml:h3')
-            .attr('class', 'header')
-            .text(function (d) { return d.division; });
-
-        var division = data;
-
-        division.forEach(function (teams) {
-            svg.selectAll(".teamline")
-            .data(teams.links)
+        g_d.selectAll(".teamline")
+            .data(function (d) { return d.links })
             .enter()
             .append("line")
             .attr("class", "teamline")
@@ -138,7 +120,10 @@ class DivisionModal extends Component {
             .attr("y1", function(d) { return d.source.cy; })
             .attr("x2", function(d) { return d.target.cx; })
             .attr("y2", function(d) { return d.target.cy; });
+        
+        var division = data;
 
+        division.forEach(function (teams) {
             var x = 0;
             teams.children.forEach(function(team) {
                 if (x >= 2) { return false; }
@@ -164,6 +149,32 @@ class DivisionModal extends Component {
                 x++;
             });
         });
+
+        var forObj = svg.selectAll('.foreign_title')
+            .data(division).enter().append('foreignObject').attr("class", "foreign_title")
+            .attr('x', function (d) { return d.cx - 90; })
+            .attr('y', function (d) { return d.cy - d.r - 50; });
+            
+        forObj.append('xhtml:h3')
+            .attr('class', 'header pointer')
+            .attr('pointer-events', 'none')
+            .style("width", "180px")
+            .text(function(d) { return d.division; })
+            .on("click", function(d) {
+                d3.select('#cardid_'+d.division).classed("active", d3.select('#cardid_'+d.division).classed("active") ? false : true);
+            });
+
+        var card = forObj.append('xhtml:div')
+                    .attr("class", "titlecard")
+                    .attr("id", function (d) { return "cardid_"+d.division; })
+                    .style("left", "-80px");
+
+        card.append("h4").text("Developer Status");
+        card.append('xhtml:ul').attr("class", "devstatus")
+            .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
+        card.append("h4").text("API & Flow Status");
+        card.append('xhtml:ul').attr("class", "apistatus")
+            .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
 
         function zoomed() {
             svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
