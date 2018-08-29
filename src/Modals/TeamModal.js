@@ -106,7 +106,7 @@ class TeamModal extends Component {
                             .enter()
                             .append('foreignObject')
                             .attr("class", "text")
-                            .attr('width', 150);
+                            .attr('width', 150).attr('height', 29);
 
             text.append('xhtml:h3').attr('class', 'header')
                 .style("font-size", "14px")

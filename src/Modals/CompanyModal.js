@@ -143,6 +143,7 @@ class CompanyModal extends Component {
                     .attr('x', function(d) { return d.cx - 50; })
                     .attr('y', function(d) { return d.cy - d.r - 30; })
                     .attr('width', 100)
+                    .attr('height', 23)
                     .append('xhtml:h3')
                     .attr('class', 'header')
                     .style("font-size", "10px")
@@ -171,9 +172,10 @@ class CompanyModal extends Component {
                             .attr('x', team.cx - 35)
                             .attr('y', team.cy - 45)
                             .attr('width', 70)
+                            .attr('height', 21)
                             .append('xhtml:h3')
                             .attr('class', 'header')
-                            .style("font-size", "8px")
+                            .style("font-size", "7px")
                             .text(team.team);
                         gteam.append("image")
                             .attr("xlink:href", "/"+team.icon)
@@ -186,14 +188,18 @@ class CompanyModal extends Component {
                 });
             }
 
-            var forObj = company.append('foreignObject').attr("class", "foreign_title")
-                                .attr('x', function(d) { return d.cx - 90; })
-                                .attr('y', function(d) { return d.cy - d.r - 40; });
+            var forObj = company.append('foreignObject')
+                        .attr("class", "foreign_title")
+                        .attr("width", 350)
+                        .attr("height", 425)
+                        .attr('x', function(d) { return d.cx - 180; })
+                        .attr('y', function(d) { return d.cy - d.r - 40; });
 
             forObj.append('xhtml:h3')
                 .attr('class', 'header pointer')
                 .attr('pointer-events', 'none')
                 .style("width", "180px")
+                .style("left", "85px")
                 .text(function(d) { return d.company; })
                 .on("click", function() {
                     d3.select('.titlecard').classed("active", d3.select('.titlecard').classed("active") ? false : true);
@@ -201,12 +207,12 @@ class CompanyModal extends Component {
                 
             var card = forObj.append('xhtml:div')
                             .attr("class", "titlecard")
-                            .style("left", "-80px");
+                            .style("left", "0");
 
-                card.append("h4").text("Developer Status");
+                card.append("xhtml:h4").text("Developer Status");
                 card.append('xhtml:ul').attr("class", "devstatus")
                     .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
-                card.append("h4").text("API & Flow Status");
+                card.append("xhtml:h4").text("API & Flow Status");
                 card.append('xhtml:ul').attr("class", "apistatus")
                     .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
         });

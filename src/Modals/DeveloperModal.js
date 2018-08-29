@@ -109,7 +109,7 @@ class DeveloperModal extends Component {
                             .enter()
                             .append('foreignObject')
                             .attr("class", "text")
-                            .attr('width', 150);
+                            .attr('width', 160).attr('height', 29);
 
             text.append('xhtml:h3').attr('class', 'header')
                 .style("font-size", "14px")
@@ -141,7 +141,7 @@ class DeveloperModal extends Component {
                     .attr("cy", function (d) { return d.y; })
                     .style("fill", function(d){ return "url(#" + d.id + ")"; });
 
-                text.attr("x", function (d) { return d.x - 75; })
+                text.attr("x", function (d) { return d.x - 80; })
                     .attr("y", function (d) { return d.y - 100; });
             }
 

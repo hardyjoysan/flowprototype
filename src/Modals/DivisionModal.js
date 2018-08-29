@@ -136,6 +136,7 @@ class DivisionModal extends Component {
                 .attr('x', team.cx - 50)
                 .attr('y', team.cy - 80)
                 .attr('width', 100)
+                .attr('height', 23)
                 .append('xhtml:h3')
                 .attr('class', 'header')
                 .style("font-size", "10px")
@@ -152,13 +153,16 @@ class DivisionModal extends Component {
 
         var forObj = svg.selectAll('.foreign_title')
             .data(division).enter().append('foreignObject').attr("class", "foreign_title")
-            .attr('x', function (d) { return d.cx - 90; })
+            .attr("width", 350)
+            .attr("height", 425)
+            .attr('x', function (d) { return d.cx - 180; })
             .attr('y', function (d) { return d.cy - d.r - 50; });
             
         forObj.append('xhtml:h3')
             .attr('class', 'header pointer')
             .attr('pointer-events', 'none')
             .style("width", "180px")
+            .style("left", "85px")
             .text(function(d) { return d.division; })
             .on("click", function(d) {
                 d3.select('#cardid_'+d.division).classed("active", d3.select('#cardid_'+d.division).classed("active") ? false : true);
@@ -167,7 +171,7 @@ class DivisionModal extends Component {
         var card = forObj.append('xhtml:div')
                     .attr("class", "titlecard")
                     .attr("id", function (d) { return "cardid_"+d.division; })
-                    .style("left", "-80px");
+                    .style("left", "0");
 
         card.append("h4").text("Developer Status");
         card.append('xhtml:ul').attr("class", "devstatus")
