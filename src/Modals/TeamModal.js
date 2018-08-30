@@ -44,6 +44,7 @@ class TeamModal extends Component {
                         j++;
                     });
                 }
+                node.nodeid = "node"+i;
                 i++;
             });
 
@@ -101,17 +102,6 @@ class TeamModal extends Component {
                     .attr("class", "node")
                     .attr("r", 40);
 
-            var text = svg.selectAll(".text")
-                            .data(data)
-                            .enter()
-                            .append('foreignObject')
-                            .attr("class", "text")
-                            .attr('width', 150).attr('height', 29);
-
-            text.append('xhtml:h3').attr('class', 'header')
-                .style("font-size", "14px")
-                .text(function (d) { return d.team; });
-
             svg.selectAll(".icons")
                 .data(data)
                 .enter()
@@ -131,10 +121,43 @@ class TeamModal extends Component {
 
                 nodes.attr("cx", function (d) { return d.x; })
                     .attr("cy", function (d) { return d.y; });
-
-                text.attr("x", function (d) { return d.x - 75; })
-                    .attr("y", function (d) { return d.y - 100; });
             }
+
+            var forObj = svg.selectAll('.foreign_title')
+                .data(data).enter().append('foreignObject').attr("class", "foreign_title")
+                .attr("width", 350)
+                .attr('height', 28)
+                .attr("id", function(d) { return "foreignid_"+d.nodeid; })
+                .attr("x", function (d) { return d.x - 175; })
+                .attr("y", function (d) { return d.y - 80; });
+                
+            forObj.append('xhtml:h3').style("font-size", "13px")
+                .style("width", "180px")
+                .style("left", "85px")
+                .attr('class', 'header pointer')
+                .attr('pointer-events', 'none')
+                .text(function(d) { return d.team; })
+                .on("click", function(d) {
+                    var cardactive = d3.select('#cardid_'+d.nodeid).classed("active") ? false : true;
+                    d3.select('#cardid_'+d.nodeid).classed("active", cardactive);
+                    if(cardactive){
+                        d3.select("#foreignid_"+d.nodeid).attr("height", 425);
+                    }else{
+                        d3.select("#foreignid_"+d.nodeid).attr("height", 28);
+                    }
+                });
+
+            var card = forObj.append('xhtml:div')
+            .attr("class", "titlecard")
+            .attr("id", function(d) { return "cardid_"+d.nodeid; })
+            .style("left", "0");
+
+            card.append("h4").text("Developer Status");
+            card.append('xhtml:ul').attr("class", "devstatus")
+                .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
+            card.append("h4").text("API & Flow Status");
+            card.append('xhtml:ul').attr("class", "apistatus")
+                .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
 
             function zoomed() {
                 svg.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
