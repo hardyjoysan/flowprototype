@@ -201,31 +201,33 @@ class CompanyModal extends Component {
                 .style("width", "180px")
                 .style("left", "85px")
                 .text(function(d) { return d.company; })
-                .on("click", function() {
-                    d3.select('.cardpopup').classed("active", d3.select('.cardpopup').classed("active") ? false : true);
+                .on("click", function(d) {
+                    appendCardpopup(d);
+                    
                 });
-                
-            var popup = d3.select(".companyModal").append('xhtml:div').attr("class", "cardpopup");
-                var card = popup.append("xhtml:div").attr("class", "titlecard");
-                card.append("xhtml:h3").attr("class", "title").text("Acme Inc");
-                card.append("xhtml:h4").text("Developer Status");
-                card.append('xhtml:ul').attr("class", "devstatus")
-                    .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
-                card.append("xhtml:h4").text("API & Flow Status");
-                card.append('xhtml:ul').attr("class", "apistatus")
-                    .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
-                
         });
 
-        var popupcard = d3.select(".cardpopup");
-        var popupShow = d3.selectAll(".titlecard, .titlecard *, .foreign_title h3.header");
+        function appendCardpopup(data) {
+            var popup = d3.select(".companyModal").append('xhtml:div').attr("class", "cardpopup active");
+            var card = popup.append("xhtml:div").attr("class", "titlecard");
+            card.append("xhtml:h3").attr("class", "title").text(data.company);
+            card.append("xhtml:h4").text("Developer Status");
+            card.append('xhtml:ul').attr("class", "devstatus")
+                .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
+            card.append("xhtml:h4").text("API & Flow Status");
+            card.append('xhtml:ul').attr("class", "apistatus")
+                .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
+        }
 
         function checkEventTarget() {
-            return this == d3.event.target;
+            return this === d3.event.target;
         }
 
         d3.select("body").on("click",function(){
-            popupShow.filter(checkEventTarget).empty() ? popupcard.classed("active", false) : false;
+            var popupShow = d3.selectAll(".titlecard, .titlecard *, .foreign_title h3.header");
+            if(popupShow.filter(checkEventTarget).empty()){
+                d3.selectAll(".cardpopup").remove();
+            }
         });
 
         function zoomed() {
