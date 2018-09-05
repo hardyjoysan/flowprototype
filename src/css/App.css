@@ -33,8 +33,14 @@ h3.header{
 h3.header.pointer{
     cursor: pointer;
 }
+.companyModal{
+    cursor: zoom-in;
+}
 .companyModal .team circle{
     fill: #fff;
+}
+.divisionModal .division{
+    cursor: zoom-in;
 }
 .divisionModal .team circle{
     fill: #fff;
@@ -70,39 +76,66 @@ h3.header.pointer{
     position: relative;
     z-index: 2;
 }
-.foreign_title .titlecard{
+.cardpopup{
     display: none;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    margin-left: -180px;
+    cursor: default;
+}
+.cardpopup.active{
+    display: block;
+}
+.cardpopup::after{
+    display: block;
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+}
+.titlecard{
+    position: relative;
+    z-index: 999;
     width: 300px;
     height: 355px;
     background: #b1b1b1;
     border-top-right-radius: 30px;
     border-bottom-left-radius: 30px;
-    position: relative;
-    left: -120px;
-    top: -15px;
     padding: 25px;
-    z-index: 1;
     text-align: left;
     -webkit-box-shadow: 0px 2px 3px 0px #5f5f5f;
     -moz-box-shadow: 0px 2px 3px 0px #5f5f5f;
     box-shadow: 0px 2px 3px 0px #5f5f5f;
 }
-.foreign_title .titlecard.active{
+.titlecard h3.title{
+    text-align: center;
+    background: #555;
     display: block;
+    width: 70%;
+    margin: auto;
+    margin-top: -40px;
+    padding: 5px;
+    color: #fff;
+    border-radius: 15px;
 }
-.foreign_title .titlecard h4{
+.titlecard h4{
     margin: 0;
     display: block;
     padding: 10px 0 0;
     text-align: left;
     color: #fff;
 }
-.foreign_title .titlecard ul.devstatus{
+.titlecard ul.devstatus{
     margin: 0;
     padding: 0;
     list-style: inside;
 }
-.foreign_title .titlecard ul.devstatus li{
+.titlecard ul.devstatus li{
     margin: 5px 0;
     color: #333;
     font-size: 12px;
@@ -114,11 +147,11 @@ h3.header.pointer{
     background-image: url(/user.svg);
     background-size: 30px;
 }
-.foreign_title .titlecard ul.devstatus li.devcount{
+.titlecard ul.devstatus li.devcount{
     padding-left: 0;
     background: none;
 }
-.foreign_title .titlecard ul.devstatus li.devcount img{
+.titlecard ul.devstatus li.devcount img{
     display: inline-block;
     vertical-align: top;
     width: 40px;
@@ -126,28 +159,28 @@ h3.header.pointer{
     border: 2px solid #fff;
     position: relative;
 }
-.foreign_title .titlecard ul.devstatus li.devcount img:nth-child(1){
+.titlecard ul.devstatus li.devcount img:nth-child(1){
     z-index: 3;
 }
-.foreign_title .titlecard ul.devstatus li.devcount img:nth-child(2){
+.titlecard ul.devstatus li.devcount img:nth-child(2){
     left: -20px;
     z-index: 2;
 }
-.foreign_title .titlecard ul.devstatus li.devcount img:nth-child(3){
+.titlecard ul.devstatus li.devcount img:nth-child(3){
     left: -40px;
     z-index: 1;
 }
-.foreign_title .titlecard ul.devstatus li.devcount span{
+.titlecard ul.devstatus li.devcount span{
     display: inline-block;
     margin-top: 15px;
     margin-left: -35px;
 }
-.foreign_title .titlecard ul.apistatus{
+.titlecard ul.apistatus{
     margin: 0;
     padding: 0px;
     list-style: inside;
 }
-.foreign_title .titlecard ul.apistatus li{
+.titlecard ul.apistatus li{
     margin: 10px 0;
     color: #333;
     font-size: 12px;
@@ -155,7 +188,7 @@ h3.header.pointer{
     display: inline-block;
     vertical-align: top;
 }
-.foreign_title .titlecard ul.apistatus li span.api_ico{
+.titlecard ul.apistatus li span.api_ico{
     display: block;
     width: 40px;
     height: 40px;
@@ -169,12 +202,12 @@ h3.header.pointer{
     background-position: center;
     margin-top: -5px;
 }
-.foreign_title .titlecard ul.apistatus li:nth-child(2) span.api_ico{
+.titlecard ul.apistatus li:nth-child(2) span.api_ico{
     background-color: #a5e8a5;
 }
-.foreign_title .titlecard ul.apistatus li:nth-child(3) span.api_ico{
+.titlecard ul.apistatus li:nth-child(3) span.api_ico{
     background-color: #a5d3e8;
 }
-.foreign_title .titlecard ul.apistatus li:nth-child(4) span.api_ico{
+.titlecard ul.apistatus li:nth-child(4) span.api_ico{
     background-color: #e5e8a5;
 }
