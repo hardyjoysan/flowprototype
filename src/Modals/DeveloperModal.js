@@ -117,30 +117,9 @@ class DeveloperModal extends Component {
             forObj.append('xhtml:h3').style("font-size", "13px")
                 .style("width", "180px")
                 .style("left", "85px")
-                .attr('class', 'header pointer')
+                .attr('class', 'header')
                 .attr('pointer-events', 'none')
-                .text(function(d) { return d.developer; })
-                .on("click", function(d) {
-                    var cardactive = d3.select('#cardid_'+d.nodeid).classed("active") ? false : true;
-                    d3.select('#cardid_'+d.nodeid).classed("active", cardactive);
-                    if(cardactive){
-                        d3.select("#foreignid_"+d.nodeid).attr("height", 425);
-                    }else{
-                        d3.select("#foreignid_"+d.nodeid).attr("height", 28);
-                    }
-                });
-
-            var card = forObj.append('xhtml:div')
-            .attr("class", "titlecard")
-            .attr("id", function(d) { return "cardid_"+d.nodeid; })
-            .style("left", "0");
-
-            card.append("h4").text("Developer Status");
-            card.append('xhtml:ul').attr("class", "devstatus")
-                .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
-            card.append("h4").text("API & Flow Status");
-            card.append('xhtml:ul').attr("class", "apistatus")
-                .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
+                .text(function(d) { return d.developer; });
 
             svg.append("defs")
                 .selectAll("pattern")
