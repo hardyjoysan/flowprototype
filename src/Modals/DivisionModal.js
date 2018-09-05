@@ -153,16 +153,15 @@ class DivisionModal extends Component {
 
         var forObj = svg.selectAll('.foreign_title')
             .data(division).enter().append('foreignObject').attr("class", "foreign_title")
-            .attr("width", 350)
-            .attr("height", 425)
-            .attr('x', function (d) { return d.cx - 180; })
+            .attr("width", 180)
+            .attr("height", 32)
+            .attr('x', function (d) { return d.cx - 90; })
             .attr('y', function (d) { return d.cy - d.r - 50; });
             
         forObj.append('xhtml:h3')
             .attr('class', 'header pointer')
             .attr('pointer-events', 'none')
             .style("width", "180px")
-            .style("left", "85px")
             .text(function(d) { return d.division; })
             .on("click", function(d) {
                 appendCardpopup(d);

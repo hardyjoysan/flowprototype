@@ -108,15 +108,14 @@ class DeveloperModal extends Component {
             var forObj = svg.selectAll('.foreign_title')
                 .data(data).enter().append('foreignObject')
                 .attr("class", "foreign_title")
-                .attr("width", 350)
+                .attr("width", 180)
                 .attr('height', 28)
                 .attr("id", function(d) { return "foreignid_"+d.nodeid; })
-                .attr("x", function (d) { return d.x - 175; })
+                .attr("x", function (d) { return d.x - 90; })
                 .attr("y", function (d) { return d.y - 80; });
                 
             forObj.append('xhtml:h3').style("font-size", "13px")
                 .style("width", "180px")
-                .style("left", "85px")
                 .attr('class', 'header')
                 .attr('pointer-events', 'none')
                 .text(function(d) { return d.developer; });

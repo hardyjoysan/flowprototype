@@ -190,16 +190,15 @@ class CompanyModal extends Component {
 
             var forObj = company.append('foreignObject')
                         .attr("class", "foreign_title")
-                        .attr("width", 350)
-                        .attr("height", 425)
-                        .attr('x', function(d) { return d.cx - 180; })
+                        .attr("width", 180)
+                        .attr("height", 30)
+                        .attr('x', function(d) { return d.cx - 90; })
                         .attr('y', function(d) { return d.cy - d.r - 40; });
 
             forObj.append('xhtml:h3')
                 .attr('class', 'header pointer')
                 .attr('pointer-events', 'none')
                 .style("width", "180px")
-                .style("left", "85px")
                 .text(function(d) { return d.company; })
                 .on("click", function(d) {
                     appendCardpopup(d);
