@@ -20,18 +20,6 @@ class ApiModal extends Component {
         var i = 0;
         var nodeSvg, linkSvg, force;
 
-        d3.select(".apiModal")
-            .append('div')
-            .attr("class", "parentTitle left")
-            .append('h2').text("Kickass API")
-            .attr("goback");
-
-        d3.select(".apiModal")
-            .append('div')
-            .attr("class", "parentTitle right")
-            .append('h2').text("Jonas Björk")
-            .attr("goback");
-
         const zoom = d3.zoom()
                     .scaleExtent([0.6, 2.5])
                     .on("zoom", zoomed);
@@ -156,6 +144,25 @@ class ApiModal extends Component {
             recurse(root);
             return nodes;
         }
+
+        d3.select(".apiModal")
+            .append('div')
+            .attr("class", "parentTitle left pointer apiPopup")
+            .append('h2').text("Kickass API")
+            .on("click", appendApiCard());
+
+        function appendApiCard() {
+            var apiCard = d3.select(".apiPopup")
+                            .append('xhtml:div').attr("class", "apiCard");
+            apiCard.append('xhtml:ul').attr("class", "apidetails")
+                .html('<li><span class="api_ico"></span><span class="text">Version 3.1</span></li><li><span class="api_ico"></span><span class="text">Included in 4 Flows</span></li><li><span class="api_ico"></span><span class="text">400% Reuse Rate</span></li><li><span class="api_ico"></span><span class="text">3 Consumers</span></li>');
+        }
+
+        d3.select(".apiModal")
+            .append('div')
+            .attr("class", "parentTitle right")
+            .append('h2').text("Jonas Björk")
+            .attr("goback");
     }
 
     render() {

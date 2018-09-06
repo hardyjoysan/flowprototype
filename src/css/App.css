@@ -31,7 +31,7 @@ h3.header{
     cursor: inherit;
     margin: 0;
 }
-h3.header.pointer{
+.pointer{
     cursor: pointer;
 }
 .parentTitle{
@@ -234,4 +234,61 @@ h3.header.pointer{
 }
 .titlecard ul.apistatus li:nth-child(4) span.api_ico{
     background-color: #e5e8a5;
+}
+.apiPopup h2{
+    display: inline-table;
+    min-width: 200px;
+    position: relative;
+    z-index: 6;
+}
+.apiPopup .apiCard{
+    position: relative;
+    z-index: 999;
+    min-width: 230px;
+    background: #b1b1b1;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding: 50px 25px;
+    text-align: left;
+    box-shadow: 0px 2px 3px 0px rgba(95, 95, 95, 0.5);
+    margin-top: -20px;
+    z-index: 5;
+    cursor: default;
+}
+.apiPopup .apiCard ul{
+    margin: 0;
+    padding: 0;
+    list-style: inside;
+}
+.apiPopup .apiCard ul li{
+    display: block;
+    margin-bottom: 15px;
+}
+.apiPopup .apiCard ul li span.api_ico{
+    display: table-cell;
+    width: 40px;
+    height: 40px;
+    background-color: #a3a3a3;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-image: url(/api_ico.svg);
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+    margin-top: -5px;
+}
+.apiPopup .apiCard ul li:nth-child(2) span.api_ico{
+    background-color: #a5d3e8;
+}
+.apiPopup .apiCard ul li:nth-child(3) span.api_ico{
+    background-color: #a5e8a5;
+}
+.apiPopup .apiCard ul li:nth-child(4) span.api_ico{
+    background-color: #e5e8a5;
+}
+.apiPopup .apiCard ul li span.text{
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 15px;
+    color: #333;
 }
