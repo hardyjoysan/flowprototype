@@ -50,7 +50,7 @@ class TeamModal extends Component {
 
             d3.select(".teamModal")
             .append('div')
-            .attr("class", "parentTitle")
+            .attr("class", "parentTitle left")
             .append('h2').text("Stockholm")
             .attr("goback");
 

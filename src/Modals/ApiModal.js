@@ -22,8 +22,14 @@ class ApiModal extends Component {
 
         d3.select(".apiModal")
             .append('div')
-            .attr("class", "parentTitle")
+            .attr("class", "parentTitle left")
             .append('h2').text("Kickass API")
+            .attr("goback");
+
+        d3.select(".apiModal")
+            .append('div')
+            .attr("class", "parentTitle right")
+            .append('h2').text("Jonas Björk")
             .attr("goback");
 
         const zoom = d3.zoom()

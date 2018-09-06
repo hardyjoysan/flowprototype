@@ -52,7 +52,7 @@ class DeveloperModal extends Component {
 
             d3.select(".developerModal")
             .append('div')
-            .attr("class", "parentTitle")
+            .attr("class", "parentTitle left")
             .append('h2').text("Optimize Prime")
             .attr("goback");
 

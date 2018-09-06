@@ -85,7 +85,7 @@ class DivisionModal extends Component {
 
         d3.select(".divisionModal")
             .append('div')
-            .attr("class", "parentTitle")
+            .attr("class", "parentTitle left")
             .append('h2').text("Acme Inc")
             .attr("goback");
         
