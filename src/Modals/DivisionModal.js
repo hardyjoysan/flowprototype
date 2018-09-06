@@ -82,6 +82,12 @@ class DivisionModal extends Component {
 
             i++;
         });
+
+        d3.select(".divisionModal")
+            .append('div')
+            .attr("class", "parentTitle")
+            .append('h2').text("Acme Inc")
+            .attr("goback");
         
         const zoom = d3.zoom()
             .scaleExtent([0.6, 2.5])

@@ -48,6 +48,12 @@ class TeamModal extends Component {
                 i++;
             });
 
+            d3.select(".teamModal")
+            .append('div')
+            .attr("class", "parentTitle")
+            .append('h2').text("Stockholm")
+            .attr("goback");
+
             const zoom = d3.zoom()
                         .scaleExtent([0.6, 2.5])
                         .on("zoom", zoomed);

@@ -20,6 +20,12 @@ class ApiModal extends Component {
         var i = 0;
         var nodeSvg, linkSvg, force;
 
+        d3.select(".apiModal")
+            .append('div')
+            .attr("class", "parentTitle")
+            .append('h2').text("Kickass API")
+            .attr("goback");
+
         const zoom = d3.zoom()
                     .scaleExtent([0.6, 2.5])
                     .on("zoom", zoomed);

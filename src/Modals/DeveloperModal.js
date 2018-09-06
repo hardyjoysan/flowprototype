@@ -50,6 +50,12 @@ class DeveloperModal extends Component {
                 i++;
             });
 
+            d3.select(".developerModal")
+            .append('div')
+            .attr("class", "parentTitle")
+            .append('h2').text("Optimize Prime")
+            .attr("goback");
+
             const zoom = d3.zoom()
                         .scaleExtent([0.6, 2.5])
                         .on("zoom", zoomed);
