@@ -215,7 +215,7 @@ class CompanyModal extends Component {
                 .html('<li class="devcount"><img src="/dev1.svg" /> <img src="/dev2.svg" /> <img src="/dev3.svg" /> <span>+3243 Developers</span></li> <li>70% Active Developers</li><li>80% Publishing Developers</li> <li>50% Consuming Developers</li>');
             card.append("xhtml:h4").text("API & Flow Status");
             card.append('xhtml:ul').attr("class", "apistatus")
-                .html('<li><span class="api_ico"></span>633 APIs</li><li><span class="api_ico"></span>30% Reuse Rate</li><li><span class="api_ico"></span>36756 Flows</li><li><span class="api_ico"></span>18 Avg Consumers per API</li>');
+                .html('<li><span class="api_ico"></span><span class="text">633 APIs</span></li><li><span class="api_ico"></span><span class="text">30% Reuse Rate</span></li><li><span class="api_ico"></span><span class="text">36756 Flows</span></li><li><span class="api_ico"></span><span class="text">18 Avg Consumers per API</span></li>');
         }
 
         function checkEventTarget() {
