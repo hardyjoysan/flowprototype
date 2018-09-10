@@ -149,13 +149,20 @@ class ApiModal extends Component {
             .append('div')
             .attr("class", "parentTitle left pointer apiPopup")
             .append('h2').text("Kickass API")
-            .on("click", appendApiCard());
+            .on("click", appendApiCard);
 
         function appendApiCard() {
-            var apiCard = d3.select(".apiPopup")
-                            .append('xhtml:div').attr("class", "apiCard");
-            apiCard.append('xhtml:ul').attr("class", "apidetails")
-                .html('<li><span class="api_ico"></span><span class="text">Version 3.1</span></li><li><span class="api_ico"></span><span class="text">Included in 4 Flows</span></li><li><span class="api_ico"></span><span class="text">400% Reuse Rate</span></li><li><span class="api_ico"></span><span class="text">3 Consumers</span></li>');
+            if(d3.select("#apiCardId").empty()){
+                var apiCard = d3.select(".apiPopup")
+                            .append('xhtml:div')
+                            .attr("class", "apiCard")
+                            .attr("id", "apiCardId");
+
+                apiCard.append('xhtml:ul').attr("class", "apidetails")
+                    .html('<li><span class="api_ico"></span><span class="text">Version 3.1</span></li><li><span class="api_ico"></span><span class="text">Included in 4 Flows</span></li><li><span class="api_ico"></span><span class="text">400% Reuse Rate</span></li><li><span class="api_ico"></span><span class="text">3 Consumers</span></li>');
+            }else{
+                d3.select("#apiCardId").remove();
+            }
         }
 
         d3.select(".apiModal")
