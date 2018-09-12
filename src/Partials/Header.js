@@ -16,6 +16,11 @@ class Header extends Component {
                         <span></span>
                     </div>
                 </div>
+
+                <div className="dp_btn">
+                    <img src="/gustav.jpg" />
+                </div>
+
             </header>
         )
     }
